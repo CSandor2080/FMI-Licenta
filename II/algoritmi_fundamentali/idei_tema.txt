@@ -1,0 +1,112 @@
+OBLIGATORIU
+1.trebuie sa se faca un struct care sa retina coordonatele punctelor, o functie care calculeaza distanta dintre puncte si apoi alg lui prim
+2. paduri distincte - curs 4,5
+3. Clustering - curs 4.3
+4. Dijkstra - curs 6.3
+5. djikstra pe liste
+6. sortare topologica
+  
+Suplimentare 
+1. kruskal / prim
+2. union/find
+3. kruskal
+4. Kruskal 4.1
+5.bellman ford- 7.1
+6. bellman ford cu coada
+7. dijkstra
+
+
+4. #include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+ifstream in("apm2.in");
+ofstream out("apm2.out");
+
+///structura in care sa pot memora valorile pentru o muchie -> nodul din care pleaca o muchie, nodul in care ajunge si costul acesteia
+struct Muchii{
+    int s, f, c;
+}muchie[100005];
+///vector in care voi memora detalii despre muchiile care intra in componenta APM-ului initial
+vector<Muchii> sol;
+///R -> vectorul de reprezentanti (fiecare componenta conexa trebuie sa aiba un reprezentant unic)
+///cost1 -> costul APM-ului initial, cost2 -> costul APM-ului pentru care adaugam o anumita muchie
+int n, m, R[10005], cost1 = 0, cost2 = 0, q;
+///functie ce ma ajuta sa ordonez crescator muchiile dupa costul acestora
+bool ordCost(Muchii a, Muchii b)
+{
+    return a.c < b.c;
+}
+///functie recursiva care imi determina reprezentantul unui nod(intoarce reprezentantul componentei conexe din care face parte)
+int reprez(int x)
+{
+    if(R[x] == x)
+        return x;
+    R[x] = reprez(R[x]);
+    return R[x];
+}
+///functie care imi uneste doua componente conexe prin asignarea aceluiasi reprezentant ambelor componente conexe(aleg unul din
+///reprezentantii unei componente conexe si il atribui si celeilalte componente)
+void reuniune(int x, int y)
+{
+    R[reprez(x)] = reprez(y);
+}
+
+int main()
+{
+    int x, y;
+    ///citesc nr de noduri, nr de muchii si nr de drumuri ce se vreau adaugate
+    in>>n>>m>>q;
+    ///initial am n noduri izolate, adica fiecare nod se are ca reprezentant pe el insusi
+    for(int i = 1; i <= n; i++)
+            R[i] = i;
+    ///citesc cele m muchii(tripletul nod start, nod final, cost)
+    for(int i = 1; i <= m; i++)
+        in>>muchie[i].s>>muchie[i].f>>muchie[i].c;
+    ///ordonez vectorul de muchii dupa cost
+    sort(muchie + 1, muchie + m + 1, ordCost);
+    ///calculez cu algoritmul lui Kruskal APM-ul initial si adaug in vectorul de solutii ce va reprezenta scheletul APM-ului
+    ///tripletele nod start, nod final, cost pentru muchiile care fac parte din APM
+    ///de asemenea, adaug la costul minim valoare costului muchiilor care fac parte din APM
+    for(int i = 1; i <= m; i++)
+    {
+        if(reprez(muchie[i].s) != reprez(muchie[i].f))
+        {
+            reuniune(muchie[i].s, muchie[i].f);
+            cost1 += muchie[i].c;
+            sol.push_back({muchie[i].s, muchie[i].f, muchie[i].c});
+        }
+    }
+    ///prelucrez nodurile intre care se doreste muchie
+    while(q)
+    {
+        ///citesc cele doua noduri intre care trebuie sa existe muchie
+        in>>x>>y;
+        ///initializez costul noului APM cu 0
+        cost2 = 0;
+        ///initial am n noduri izolate, adica fiecare nod se are ca reprezentant pe el insusi
+        for(int i = 1; i <= n; i++)
+            R[i] = i;
+        ///reunesc nodurile x si y, deoarece doresc sa am muchia aceea inclusa in APM, deci consider deja ca acea muchie este
+        ///cea mai optima de pus in noul APM
+        reuniune(x, y);
+        ///calculez cu algoritmul lui Kruskal APM-ul nou adaugand la costul minim nou valoare costului muchiilor care fac
+        ///parte din noul APM
+        for(int i = 0; i < sol.size(); i++)
+            if(reprez(sol[i].s) != reprez(sol[i].f))
+            {
+                reuniune(sol[i].s, sol[i].f);
+                cost2 += sol[i].c;
+            }
+        ///muchia pe care doresc sa o adaug in graf si care sa respecte conditia sa faca parte din orice APM o sa aiba
+        ///cea mai mare valoare egala cu diferenta dintre costul APM-ului initial si costul APM-ului nou pentru care imi lipseste
+        ///costul muchiei nou adaugate - 1
+        out<<cost1 - cost2 - 1<<endl;
+        q--;
+    }
+    return 0;
+}
+///Complexitate memorie: O(m)
+///Complexitate timp: O(mlogn)

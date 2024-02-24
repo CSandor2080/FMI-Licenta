@@ -1,0 +1,1269 @@
+\documentclass{report}
+
+\usepackage[romanian]{babel}
+\usepackage{combelow}
+
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{wrapfig}
+\usepackage{array}
+\usepackage{amsfonts}
+
+\title{Cursuri -Probabilități și Statistică-}
+\author{Dîrțu Ecaterina și Sandu Anastasia} 
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Curs 1}
+
+\section{Introducere}
+
+\subsection{Modaliate de notare}
+\medskip
+Punctajul maxim posibil este 125p și se împarte astfel:
+\begin{itemize}
+\item 10p - Oficiu
+\item 20p - Laborator și seminar (pentru activitate și o serie de teste rapide neanuțate)
+\item 30p - Proiect (echipe de 2 sau maxim 3 persoane, cu prezentare în sesiune)
+\item 50p - Examen scris personalizat (fără materiale, va dura 3 ore)
+\item 15p - Bonus (nu se ia în calcul pentru promovare) 
+\end{itemize}
+\medskip
+Criterii de promovare:
+
+\begin{itemize}
+\item  nota finală $\geq$ 50p
+\item  nota la examenul scris $\geq$ 25p
+\end{itemize}
+
+\subsection{Utilitate și Informații}
+
+Calucului probabilităților și al statisticilor este foarte util pentru a înțelege mai târziu \newline AI (Artificial Intelligence) și ML (Machine Learning).\newline
+
+Link pentru site-ul cursului: https://alexamarioarei.quarto.pub/curs-ps-2022-2023/
+\begin{figure}[h]
+\includegraphics[width=0.5\textwidth]{C1_p0.jpg} 
+\label{fig:img1} 
+{\begin{subfigure}
+    \includegraphics[width=0.5\textwidth]{C1_p1.jpg}
+    \label{fig:img2}
+    \end{subfigure}}
+\end{figure}
+
+\begin{center}
+Două diagrame relevante informațiilor din continuare
+\end{center}
+
+\subsection{Exemplu}
+
+Într-o urnă cu bile albe și bile negre, proporția bilelor albe este: \textbf{p $\in$ (0,1)}, o valoare necunoscută.
+Problema poate fi abordată în două moduri:
+
+\begin{enumerate}
+\medskip
+\item Probabilități:\newline 
+Presupunem \textbf{p}=17\%, extragem 10 bile cu întoarcere (fiecare bilă este extrasă, consemnată și apoi pusă înapoi în urnă înaintea următoarei extrageri).
+
+Care este probabilitatea ca din cele 10 bile extrase să avem 4 albe?
+\medskip
+\item Statistică:\newline 
+Am extras din urnă 10 bile cu întoarcere și observăm că 4 sunt albe.
+
+Ce se poate spune despre \textbf{p}?
+\end{enumerate}
+
+
+
+\section{Câmp de probabilitate. Operații cu evenimente.}
+
+\textbf{Eveniment aleator} 
+= șir de acțiuni/fenomen cu rezultat necunoscut înaintea realizării lui.\medskip
+
+Acestuia îi asociem:
+
+\begin{itemize}
+\item $\Omega$ = mulțimea evenimentelor elementare, mulțimea rezultatelor posibile ale experimentului, spațiul stărilor/probelor.
+
+ex: $\Omega = \{H (head), T (tail)\}$ (ban),  $\Omega = \{1, 2, 3, 4, 5, 6\}$ (zar) etc.
+
+\item $\omega \in \Omega$ = elementele multimii, un eveniment elementar
+\end{itemize}
+\medskip
+\textbf{Proprietăți ale lui $\Omega$:}
+
+\begin{itemize}
+\item mutualitate exclusivă (evenimentele se exclud reciproc)
+\item colectivitate exhaustivă (cel puțin unul din evenimente se realizează)
+
+$\Longrightarrow$ "unul și numai unul" se realizează.
+\end{itemize}
+\medskip \underline{Obs}: Dacă două fenomene se realizează în același, dar ne interesează doar rezultatul unuia:
+
+\begin{enumerate}
+\item Afară poate ploua sau nu
+\item Se dă cu banul și poate cădea cap sau pajură. (fenomenul relevant)
+\end{enumerate}
+
+$\Longrightarrow$ $\Omega = \{$ H și plouă, T și plouă, H și nu plouă, T și nu plouă $\}$
+
+\medskip
+Dacă experimentul cu banul nu este influențat de vreme \newline (se desfășoară în interoir, cu geamurile închise), atunci $\Omega = \{H, T\}$ 
+
+\medskip \underline{Definiție}: O submulțime $A \in \Omega$ se numește \textbf{eveniment}. Spunem că evenimentul $A$ se realizează dacă în urma desfășurării experimentului aleator rezultatul $\omega \in A$  
+
+
+\begin{center}
+\begin{tabular}{ | m{4em} | m{10em}| m{10em} | } 
+  \hline
+   & Teoria Mulțimilor & Teoria Probabilităților \\ 
+  \hline
+  $\Omega$ & mulțimea $\Omega$ & spațiul stărilor (evenimentul sigur) \\ 
+  \hline
+  $\omega$ & un element al lui $\Omega$ & evenimentul elementar \\ 
+  \hline
+  $ \emptyset $ & mulțimea vidă & evenimentul imposibil \\
+  \hline
+  $A$ & mulțimea $A$ & evenimentul posibil $A$ \\
+  \hline
+  $\overline{A}$ & complementara lui $A$ in $\Omega$ & evenimentul contrar lui $A$ \\
+  \hline
+  $A \cup B$ & reuniune & cel pțin unul dintre evenimentele $A$ și $B$ se realizează ($A$ sau $B$)\\
+  \hline
+  $A \cap B$ & intersecție & evenimentele $A$ și $B$ se realizează simultan\\
+  \hline
+  $A \backslash B$ & diferență & evenimentul $A$ se realizează, dar evenimentul $B$ nu \\
+  \hline
+  $A \triangle B$ & diferență simetrică & sau $A$ sau $B$ se realizează, dar nu ambele \\
+  \hline
+\end{tabular}
+\end{center}
+\label{tab:widgets}
+
+\medskip \underline{Definiție}: \textbf{Mulțimea evenimentelor posibile asociate evenimentului aleator cu spațiul stărilor $\Omega$} este o submulțime  $\mathcal{F} \in P(\Omega)$ care verifică următoarele proprietăți:
+
+\begin{enumerate}
+\item $\Omega \in \mathcal{F}$
+\item dacă $A \in \mathcal{F}$, atunci $\overline{A} \in \mathcal{F}$
+\item dacă $A$ și $B \in \mathcal{F}$, atunci $A \cup B \in \mathcal{F}$
+\end{enumerate}
+\medskip Observație: Dacă toate proprietățile sunt îndeplinite, $\mathcal{F}$ se numește $algebă$.
+ 
+\subsection{Exemplu}
+
+Aruncăm cu banul până obținem pentru prima oară $H$.
+\medskip 
+\newline $\Longrightarrow$ $\Omega = \{$1 (pt H), 2 (pt TH), 3 (pt TTH) ...$\} = \mathbb{N}^{*}$ \newline
+\medskip \newline
+Presupunem că am obținut H după un număr par de aruncări. \medskip
+\newline $\Longrightarrow$ $A = \{$2, 4, 6 ... $\} = \bigcup_{1}^{\infty}\{2i\}$ 
+\medskip \newline
+În acest context se remarcă: \medskip \newline $3^{'}.$ dacă $(A_{n})_{n} \in \mathcal{F}$, atunci $\bigcup_{i=1}^{\infty}\{A_{n}\} \in \mathcal{F}$.
+\medskip 
+\newline Dacă $\mathcal{F}$ verifică $1, 2, 3^{'}$, atunci acesta se numește "$\sigma$-algebră" \newline (notație definită în cadrul teoriei măsurii). $\sigma$ face referire la numerabilitate în fața unui termen. \newline
+Astfel, se definește $(\Omega, \mathcal{F}, \mathbb{P})$ un spațiu probabilizabil și măsurabil.
+
+
+\chapter{Curs 2}
+
+\section{Formule de calcul}
+
+\subsection {Noțiuni teoretice}
+
+Presupunem ca avem un experiment aleator și un eveniment $A$ de interes. Repetam experimentul (în condiții similare) de un număr mare de ori N.
+
+Notăm: \newline $N(A)$ = nr de realizări ale lui A
+\newline
+$\frac{N(A)}{N}$ = frecvența relativă de realizare a lui A
+
+$\mathbb{P}(A)\simeq \lim_{N \to \infty}\frac{N(A)}{N}$
+
+$N(A) \in {0,1,...., N} \Rightarrow$ că $\mathbb{P} \in$ [0,1]
+\newline
+Dacă $A=\Omega \Rightarrow  N(A)=N \Rightarrow \frac{N(A)}{N}=1 \Rightarrow  P(\Omega)=1 $
+\medskip \newline 
+Presupunem că avem 2 evenimente $A, B \in \mathcal{F}, A \cap B = \emptyset, A \cup B \in \mathcal{F} $\newline
+$N(A\cup B)= N(A)+ N(B)/:N \newline \mathbb{P}(A\cup B)= \mathbb{P}(A)+ \mathbb{P}(B)$ (finit aditivitate)
+
+\medskip \newline Definiție: O funcție $\mathbb{P}:\mathcal{F} \to $[0,1] care verifică:
+\begin{enumerate}
+\item $\mathbb{P}(\Omega) = 1$
+\item $(\forall) (A_{n})_{n} \subseteq \mathcal{F}$ distincte două câte două \newline $\mathbb{P}(\bigcup_{N}A_{N}) =\sum_{n=1}^{\infty}\mathbb{P}(A_{n})$ (membrul drept e o serie)
+\end{enumerate}
+
+Se numește \textbf{măsură de probabilitate} pe $(\Omega, \mathcal{F})$ sau prescurtat \textbf{probabilitate}
+($\sigma-aditivitate$) 
+\newline \medskip
+Acum putem atribui unui eveniment aleator un triplet $(\Omega, \mathcal{F}, \mathbb{P})$ numit \textbf{câmp de probabilitate}. 
+\subsection {Exemple}
+
+1)  Aruncatul cu banul\newline
+- $\Omega = \{H, T\}$\newline
+- $\mathcal{F}= P(\Omega)$\newline
+- funcția $\mathbb{P}$ trebuie sa verifice proprietățile:\newline
+$\mathbb{P}(\Omega) = 1$, $\mathbb{P}(\emptyset) = 0$
+$\mathbb{P}(\{H\}) = p \in [0,1] \Rightarrow \mathbb{P}(\{T\})=1-p$\newline
+Dacă se dă o monedă echilibrată/corectă $\Rightarrow p=\frac{1}{2}$\newline \medskip
+2)  Aruncat cu zarul\newline
+- $\Omega = \{H, T\}$\newline
+- $\mathcal{F}= P(\Omega)$\newline
+- pentru $\mathbb{P}({i}) = p_{i} \in [0,1]$, i $\in \Omega$.\medskip \newline 
+Suma probabilităților trebuie să dea 1 pentru că $\mathbb{P}(\Omega)=1$.\newline
+$\Omega$ e reuniunea celor 6 evenimente elementare disjuncte 2 câte 2 deci $p_{1}+...+p_{6}=1$, alegem primele 5 valori corespunzător și al șaselea e diferența până la 1.\newline
+
+Din definiție rezultă că probabilitatea reuniunii e sumă din probabilitățile elementelor:
+
+$\mathbb{P}(\bigcup_{i=1}^{6}A_{i})=\sum_{i=1}^{6}\mathbb{P}(A_{i})$
+\newline 3) Proprietate: \newline Demonstrăm: $\mathbb{P}(\emptyset) = 0$ \newline
+Fie șirul $A_{N}=\emptyset , \bigcup_{N}A_{n}= \emptyset \newline$ Presupunem prin reducere la absurd că: \newline $\mathbb{P}(\emptyset)>0$, dar din 2. $\Rightarrow \mathbb{P}(\emptyset)\in [0,1] = \sum_{n} \mathbb{P(\emptyset)} \longrightarrow \infty$ ($"\Rightarrow\Leftarrow"$ - contradicție)
+
+\section{Modelul clasic de probabilitate. Modelul lui Laplace}
+
+Fie N natural nenul și considerăm un eveniment aleator cu N rezultate posibile.  \newline
+$\Omega, a={\omega_{1}...\omega_{N}}, \newline \mathcal{F}=P(\Omega)$ are $2^{N}$ elemente.
+
+Funcția $\mathbb{P}: \newline \mathbb{P}({\omega_{i}})=\frac{1}{N}$ se numește \textbf{echirepartiție}, $\omega_{i} i=1...n$ are șanse egale de realizare.
+
+Fie $A \in \mathcal{F} $:
+$\mathbb{P}(A) = \mathbb{P}(\bigcup_{i=1}^{N}\omega_{i}) =\frac{1}{N}=\frac{|A|}{|\Omega|}= \frac{Nr cazuri favorabile}{Nr cazuri posibile}$
+
+\section{Elemente de combinatorică. Analiza combinatorială}
+
+A. \underline{Formula sume}
+\newline
+
+- Pentru $A$ și $B$ mulțimi finite disjuncte:\newline
+$|A \cup B|= |A|+|B|$
+\newline
+
+- Pentru mulțimi oarecare se scade intersecția:\newline
+$|A \cup B|= |A|+|B|-|A \cap B|$
+\newline
+
+- Pentru N mulțimi oarecare obținem principiul includerii și al excluderii, ce derivă de la Poincare când considerăm că și probabilitățile sunt tot probleme de cardinale.\newline\newline
+B. \underline{Formula produsului}
+\newline
+
+- Fie $A$ și $B$ mulțimi finite și $AxB$ produsul cartezian, $(a,b) \in AxB$: \newline
+$|AxB|=|A|*|B|$
+
+\chapter{Curs 3}
+
+\section{Modalități de eșantionare}
+
+\subsection{Exemplificare teoretica}
+
+\begin{itemize}
+\item schema cu revenire/întoarcere \newline
+
+Considerăm o urnă cu n bile 1,..n și efectuăm k extrageri cu întoarcere \newline
+\medskip
+Reformulare: \newline
+Avem k bile și n urne: $(x1,.... xk)$ sau, mai general, numărul de șiruri de lungime k cu termeni oarecare din mulțimea 1,..n \newline
+
+În câte moduri se pot extrage? $\Rightarrow n^{k}$ moduri
+
+\item schema fără revenire /întoarcere \newline
+
+Considerăm o urna cu n bile și extragem k bile fără întoarcere (k $\ge$ n).\newline
+
+Reformulare: \newline
+Numărul de șiruri de lungime k cu termeni distincți din mulțimea 1,..n \newline
+
+În câte moduri se pot extrage? $\Rightarrow \frac{n!}{(n-k)!}$
+\end{itemize} 
+
+\subsection{Exemple}
+\begin{enumerate}
+    \item 
+Câte cuvinte pot fi formate cu literele din MATE (diferite)
+
+Cu revenire: $4^{4}=256$ \newline
+Fără revenire: 4!=24
+
+    \item 
+Avem o serie de cărți: 4 de mate, 3 de fizică, 2 de istorie, 1 de geografie
+
+$\Rightarrow 4!*4!*3!*2!*1!$
+
+    \item 
+Problema aniversăriilor: \newline
+Având N persoane, care e probabilitatea ca cel puțin 2 să fie născute în aceeași zi?
+
+Ipoteze:\newline
+- anul are 365 zile\newline
+- echirepartiția zilelor de naștere pe parcursul anului\newline
+- ziua cuiva nu o influențează pe a altcuiva (un contraexemplu ar fi gemenii) 
+
+Câmpul de probabilitate $(\Omega, \mathcal{F}, \mathbb{P})$: \newline
+$\Omega$=toate zilele de naștere ale persoanelor, fiecare între 1 și 365 ($Z_{i}$) 
+$\Rightarrow  |\Omega|=365^{n}$
+
+$\mathcal{F}= P(\Omega)$
+
+$\mathbb{P}:\mathcal{F} \Rightarrow [0,1], $
+$\mathbb{P}({W}) = \frac{1}{365^{n}}$ din echirepartiție
+
+Evenimentul favorabil A=2 pers s-au născut în aceeași zi
+
+
+$\mathbb{P}$=$\frac{|A|}{|\Omega|}$
+
+$\mathbb{P}^{c}$=1-$\mathbb{P}$ pentru evenimentul contrar toate cele n persoane s-au născut în zile diferite 
+
+$\mathbb{P}^{c}=\frac{365*364*....*365-n+1}{365^{n}}$
+$\Rightarrow \mathbb{P}$ e aprox $51\%$
+
+\end{enumerate}
+
+Numărul de submulțimi cu k elemente ale unei mulțimi de n elemente $\Rightarrow$ combinări (pentru că ordinea nu contează)
+
+\begin{enumerate}
+    \item Cu un pachet de 52 cărți, câte mâini de 5 cărți putem avea? $\mathrm{C}_{52}^{5}$
+    \item Câte mâini de 5 cărți conțin exact 2 Ași, 2 de 8 și o Damă? 
+$\mathrm{C}_{4}^{2}*\mathrm{C}_{4}^{2}*\mathrm{C}_{4}^{1}$
+    \item Variante de împărțire ale cărților: 4 semne, 13 figuri
+ \begin{itemize}
+     \item Cât e probabilitatea să obținem fullhouse (2 identice + 3 identice)? \newline
+Toate pachetele de 5 cărți sunt 
+$ \mathrm{C}_{52}^{5} = \Omega$\newline
+Consideram echirepartiția: $\frac{1}{|\Omega|}$\newline
+A = evenimentul favorabil, 
+$|A|=13*\mathrm{C}_{4}^{2}*12*\mathrm{C}_{4}^{3}$
+    \item Cât e probabilitatea să avem o pereche de cărți în mână?\newline
+$13*\mathrm{C}_{4}^{2}*(\mathrm{C}_{4}^{1})^{3}*\mathrm{C}_{12}^{3}$
+ \end{itemize}
+ \item
+ Problema lui Newton Ripys. Care este probabilitatea ca:
+\begin{itemize}
+    \item cel puțin o valoare de 6 să apară atunci când aruncăm 6 zaruri?\newline
+$|\Omega|=6^{6}$ și este echirepartită \newline
+$\mathbb{P}=1-\mathbb{P}^{c}=1-\frac{5^{6}}{6^{6}}$
+    \item cel puțin 2 de 6 să apară atunci când aruncăm 12 zaruri?\newline
+$|\Omega|=6^{12}$\newline
+$\mathbb{P}$=1-(niciuna sau exact una), 
+Observație: 'sau' $\Leftrightarrow$ '+' (pentru că sunt disjuncte) \newline
+$\mathbb{P}=1-\frac{5^{12}}{6^{12}}-\mathrm{C}_{12}^{1}*\frac{5^{11}}{6^{12}}$
+    \item cel puțin 3 de 6 să apară atunci când aruncăm 18 zaruri?\newline
+$\mathbb{P}$=1-(niciuna + exact una + exact două)\newline
+$\mathbb{P}=1-\frac{5^{18}}{6^{18}}-\mathrm{C}_{18}^{1}*\frac{5^{17}}{6^{18}}-\mathrm{C}_{18}^{2}*\frac{5^{16}}{6^{18}}$
+\end{itemize}
+\end{enumerate}
+
+\section{Partiții. Coeficientul multinomial}
+ 
+Fie o mulțime cu n elemente și considerăm $n_{1}, n_{2}...n_{k} \in \mathbb{N}$ cu $n_{1}+n_{2}+...+n_{k}=n$\newline
+Consideram o partiție cu k submulțimi $A_{i}$, unde o submulțime să aibă $n_{i}$ elemente
+
+$\mathrm{C}_{n}^{n_{1}}*\mathrm{C}_{n-n_{1}}^{n_{2}}*...*\mathrm{C}_{n-n_{1}-n_{2}-...-n_{k-1}}^{n_{k}}$
+
+Exemple: 
+\begin{itemize}
+    \item Numărul de anagrame pentru MATEMATICA
+     (2M, 3A, 2T, 1C, 1E și 1I) \newline
+$\Rightarrow \mathrm{C}_{10}^{3}*(\mathrm{C}_{10}^{2})^{2}*(\mathrm{C}_{10}^{1})^{3}$ 
+    \item Fie un grup de 4 băieți și 12 fete. Care e probabilitatea ca după formarea a 4 subgrupe, în fiecare să fie un baiat? \newline
+$\Rightarrow 4!*\frac{(\mathrm{C}_{12}^{3})^{4}}{(\mathrm{C}_{16}^{4})^{4}}$
+ 
+\end{itemize}
+În extragerea cu revenire, ordinea nu contează. \newline În câte moduri putem plasa k bile (care nu se disting între ele) în n urne? \newline
+n urne $\Rightarrow$ n-1 pereți despărțitori \newline $\binom{n+k-1}{n-1}$ = $\binom{n+k-1}{k}$
+
+\chapter{Curs 4}
+
+\section{Probabilități condiționate}
+
+Exemple:
+\begin{itemize}
+    \item Aruncăm cu o monedă echilibrată de 3 ori. Care e probabilitatea să obținem HHH? 
+
+$\Omega=\{H,T\}^{3} = \{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT\},  |\Omega|= 8$ 
+$\Rightarrow \mathbb{P}=\frac{1}{8}$
+    \item Modificăm: Știm că la prima aruncare am obținut H.\newline
+$\Omega = \{HHH, HHT, HTH, HTT\}, |\Omega|= 4$
+$\Rightarrow \mathbb{P}=\frac{1}{4}$
+\end{itemize}
+
+Notat $\mathbb{P}(A|B)$ se citește: \newline A ce vrem, B ce s-a realizat deja, bara e "știind că" \newline
+"probabilitatea realizării lui A știind că B s-a realizat"\newline
+"probabilitatea condiționată a lui A la B" \newline
+
+Din perspectivă frecvenționistă: \newline
+Avem un experiment aleator pe care îl repetăm de N ori. \newline Ne interesează pentru evenimentele A și B:
+$\frac{N(A\cap B)}{N(B)}$\newline
+ Ca probabilitate: 
+$\mathbb{P}= \frac{\frac{N(A\cap B)}{N}}{\frac{N(B)}{N}} =\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$\newline
+
+Definiție: \newline
+Fie un câmp de probabiliate $(\Omega, \mathcal{F}, \mathbb{P})$, două evenimente A, B $\in \mathcal{F}$ cu $\mathbb{P}(B)>0.\newline$
+Atunci probabilitatea condiționată lui A la evenimentul B, notată $\mathbb{P}(A|B)$, se calculează folosind formula $\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$
+
+Obs: A|B nu e un eveniment efectiv, e doar notație, iar \newline 
+$\mathbb{P}(A)$ e probabilitatea a proiri \newline
+$\mathbb{P}(A|B)$ e probabilitatea a posteriori \newline
+$\mathbb{P}(A|B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} = \frac{\mathbb{P}(A)}{\mathbb{P}(B)}=\frac{\frac{1}{8}}{\frac{4}{8}} = \frac{1}{4}$
+
+Exemple:
+\begin{itemize}
+\item Avem un pachet de cărți de joc și extragem în mod aleator 2 cărți succesiv fără întoarcere \newline
+Evenimentele realizate: \newline
+A - prima carte e inima rosie \newline
+B - a doua carte e inima roșie \newline
+C - a doua carte e de culoare rosie \newline
+
+Vrem să calculăm: $\mathbb{P}(B|A)$, $\mathbb{P}(C|A)$, $\mathbb{P}(A|B)$, $\mathbb{P}(A|C)$ 
+
+Soluție: \newline
+$\mathbb{P}(B|A)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(A)}=\frac{\frac{13*12}{52*51}}{\frac{13}{52}} = \frac{12}{51}$ \newline
+$\mathbb{P}(C|A)=\frac{\mathbb{P}(A\cap C)}{\mathbb{P}(A)}=\frac{\frac{13*25}{52*51}}{\frac{13}{52}} = \frac{25}{51}$ \newline
+$\mathbb{P}(A|B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}=\mathbb{P}(B|A)$, deoarece
+$\mathbb{P}(B)$ are acceasi șansă înainte să se desfășoare evenimentele ca $\mathbb{P}(A)$ fiind echirepartiție \newline
+$\mathbb{P}(A|C)=\frac{\mathbb{P}(A\cap C)}{\mathbb{P}(C)}=\frac{\frac{13*25}{52*51}}{\frac{26}{52}} = \frac{25}{102}$
+
+\item Fie o familie cu 2 copii: \newline
+a) Care e probabilitatea ca cei 2 copii sa fie ambii fete, știind că primul e fată?\newline
+b) Care e probabilitatea ca cei 2 copii sa fie ambii fete, știind că cel puțin unul e fată?
+Atenție examen! \newline
+c) Care este probabilitatea ca cei 2 copii să fie fete știind că una e născută iarna? \newline
+
+Soluție: \newline
+a) și b) $\Omega=\{BB, BF, FB, FF\}$ și Fiecare copil nu e influențat de celălalt \newline
+$A=\{FB, FF\} \Rightarrow \mathbb{P}=\frac{1}{2}$ \newline
+$B=\{FB, BF, FF\} \Rightarrow \mathbb{P} = \frac{1}{3}$
+
+c) $\Omega=\{FI, FV, FP, FT, BI, BV, BP, BT\} ^{2} \Rightarrow |\Omega| = 64$ elemente \newline
+(2)
+E - 2 fete dintre care una nascută iarna \newline
+$\mathbb{P}(FI)=\frac{15}{64}, \mathbb{P}(E)=\frac{7}{64}$ \newline
+$\Rightarrow \mathbb{P}= \frac{7}{15}$
+
+\item
+Dacă o aeronava apare în zona de interes scanată de un radar, atunci se declanșează o alarmă cu probabilitatea de 99\%.
+Daca nu avem aeronavă, atunci alarma falsă se declanșează cu 10\% probabilitate. Șansa ca o aeronavă să treacă prin zona respectivă e 5\%.
+
+a) Care e probabilitatea ca în zonă să nu avem avion și să avem alarmă? \newline
+b) Care e probabilitatea ca în zonă să avem avion și sa nu fie detectat? \newline
+
+Căutăm evenimentele elementare: \newline
+A - să avem avion \newline
+B - să avem alarmă \newline
+
+Ipoteză: \newline
+$\mathbb{P}(A) = \frac{5}{100}, \mathbb{P}(B|A) =\frac{99}{100}, \mathbb{P}(B|A^{c}) =\frac{10}{100}$
+
+Soluție: \newline
+Vrem $\mathbb{P}(A^{c} \cap B)$ pentru a) \newline
+Vrem $\mathbb{P}(A \cap B^{c})$ pentru b) \newline
+
+$\mathbb{P}(B|A)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(A)} \newline \Rightarrow \mathbb{P}(A\cap B)=\mathbb{P}(B)*\mathbb{P}(A|B) $ \newline
+Observație:\newline se poate și $\mathbb{P}(A\cap B)=\mathbb{P}(B)*\mathbb{P}(B|A)$
+
+$\mathbb{P}(A^{c} \cap B) =\mathbb{P}(B|A)*\mathbb{P}(A^{c})=\mathbb{P}(B|A)*(1-\mathbb{P}(A))=0.05*0.99$
+
+$\mathbb{P}(A \cap B^{c})=\mathbb{P}(B^{c})*\mathbb{P}(A)
+=(1-\mathbb{P}(B|A))*\mathbb{P}(A)=0.01*0.05$
+\end{itemize}
+
+Generalizare: Regula produsului
+
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P}), A_{1}, A_{2}... A_{n} \in \mathcal{F}$ și $\mathbb{P}(\bigcap_{i=1}^{n}A_{i}) >0 $ \newline
+$ \Rightarrow \mathbb{P}(\bigcap_{i=1}^{n}A_{i})= \mathbb{P}(A_{1})*\mathbb{P}(A_{2}|A_{1})*\mathbb{P}(A_{3}|A_{1}\cap A_{2})*..*\mathbb{P}(A_{n}|A_{1}\cap ... \cap A_{n-1}) $ \newline
+
+Formula probabilității totale: \newline
+ Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P}), B_{1}, B_{2}, B_{3}$ și $ A\in \mathcal{F}$  \newline
+ $B_{1} \cup B_{2} \cup B_{3} = \Omega$ disjuncte două câte două \newline
+ $A = A \cap \Omega = A \cap (B_{1} \cup B_{2} \cup B_{3}) = (A \cap B_{1}) \cup (A \cap B_{2}) \cup (A \cap B_{3}) $ \newline
+ $\mathbb{P}(A) = \mathbb{P}(A \cap B_{1})+\mathbb{P}(A \cap B_{2})+\mathbb{P}(A \cap B_{3})$ \newline
+ $= \mathbb{P}(A|B_{1})*\mathbb{P}(B_{1})+\mathbb{P}(A|B_{2})*\mathbb{P}(B_{2})+\mathbb{P}(A|B_{3})*\mathbb{P}(B_{3})$ \newline
+
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$, $B_{1}... B_{n} \in \mathcal{F}$ partițiile lui $\Omega, \forall B_{i} > 0, i=\overline{1, n} $. Dacă $A \in \mathcal{F}$ 
+
+Caz particular pentru n=2: \newline
+$\mathbb{P}(A)=\mathbb{P}(A|B)*\mathbb{P}(B)+\mathbb{P}(A|B^{c})*\mathbb{P}(B^{c})$ \newline
+
+Formula lui Bayes:
+
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$ și A, B $\in \mathcal{F}$ și presupunem că probabilitățile sunt pozitive.
+
+$\mathbb{P}(B|A)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(A)}=\frac{\mathbb{P}(A|B)*\mathbb{P}(B)}{\mathbb{P}(A)}=
+=\frac{\mathbb{P}(A|B)*\mathbb{P}(B)}{\mathbb{P}(A|B)*\mathbb{P}(B)+\mathbb{P}(A|B^{c})*\mathbb{P}(B^{c})}$
+
+Generalizare: \newline
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$, $B_{1}... B_{n} \in \mathcal{F}$ partițiile lui $\Omega, \forall B_{i} > 0, i=\overline{1, n} $.
+
+$\mathbb{P}(A)= \sum_{i=1}^{n}\mathbb{P}(A|B_{i})*\mathbb{P}(B_{i})$ \newline
+
+Exemplu: \newline
+Presupunem că prevalența unei boli în populație este de 1\% și că efectuăm un test de detecție cu o acuratețe de 95\%. \newline
+Prin acuratețe înțelegem sensibilitatea si specificitatea testului, unde sensibilitatea înseamnă rata de true pozitive, (probabilitatea ca testul să fie pozitiv știind că e persoana e infectată) și specificitatea e rata de true negative (probabilitatea ca testul să fie negativ știind că persoana nu e infectată).
+
+Notăm evenimentele elementare: \newline
+D - pacient infectat \newline
+T - test pozitiv
+
+Sensibilitatea este $\mathbb{P}(T|D)$, iar specificitatea este $\mathbb{P}(T^{c}|D^{c})$. 
+
+Problema: \newline
+Presupunem că ne testăm și testul este pozitiv. Care e probabilitatea să avem boala $\mathbb{P}(D|T)$? \newline
+
+Folosim Bayes:
+
+$\mathbb{P}(D|T)=\frac{\mathbb{P}(T\cap D)}{\mathbb{P}(T)}=\frac{\mathbb{P}(T|D)*\mathbb{P}(D)}{\mathbb{P}(T)}=
+=\frac{\mathbb{P}(T|D)*\mathbb{P}(D)}{\mathbb{P}(T|D)*\mathbb{P}(D)+\mathbb{P}(T|D^{c})*\mathbb{P}(D^{c})}$ \newline
+$\mathbb{P}(D|T)=\frac{0.95*0.01}{0.95*0.01+ 0.05*0.99} = 0.16$
+
+
+\chapter{Curs 5} 
+
+\section{Recapitulare probabilitati conditionate} 
+
+Notație : 
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P}), A \in F ,  \mathbb{P}(A) \neq 0 , \mathbb{Q}(B) = \mathbb{P}(B|A), \forall B \in A \cap F$
+
+Exemplu: \newline
+Presupunem că avem 2 monede:
+- una echilibrată cu $H$ cu probabilitatea $\frac{1}{2}$ \newline
+- una trucată cu $H$ cu probabilitatea $\frac{3}{4}$ \newline
+Șansa de a alege una din ele este egală. \newline
+După ce aruncă cu cea aleasă rezultă $HHH$
+
+\begin{enumerate}
+    \item care e probabilitatea să fi ales moneda echilibrată?
+    \item are e probabilitatea ca dacă mai aruncăm acum odată să cadă tot $H$? 
+\end{enumerate}
+
+Soluții: \newline
+\begin{enumerate}
+    \item Notăm evenimentele:\newline
+A - evenim prin care în primele 3 aruncări s-a obținut $HHH$ \newline
+B - evenim ca am ales moneda echilibrată 
+
+Vrem $\mathbb{P}(B|A)$ (rezolvăm cu Bayes)Ș \newline
+$\mathbb{P}(B|A)=\frac{\mathbb{P}(A|B)*\mathbb{P}(B)}{\mathbb{P}(A)}=(1)$
+
+\item
+Notăm: \newline
+C - evenimentul ca la a patra aruncare se obține $H$? \newline
+$\mathbb{P}(C|A)$ 
+Fie:
+$\mathbb{Q}(C)$ și folosim formula probabilității totale: \newline
+(2)
+\end{enumerate}
+
+\section{Independența evenimentelor} 
+\subsection{Noțiuni teoretice} 
+Observație: 
+
+2 evenimente sunt independente dacă realizarea unuia nu aduce vreun fel de informație suplimentara despre realizarea celuilalt. 
+
+Definiție: \newline
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$, $A$ și $B$ 2 evenimente din $\mathcal{F}$. Spunem că A și B sunt independiente. \newline
+Dacă $\mathbb{P}(A|B)=\mathbb{P}(B)*\mathbb{P}(A) \cap B=\mathbb{P}(A)*\mathbb{P}(B)$
+
+Definiție:\newline
+Independența pentru n evenimente în $\mathcal{F}$:\newline
+Spunem că $A_{1}... A_{n}$ sunt mutual independente dacă: \newline
+$ \mathbb{P}(\bigcup_{i=1}^{n}A_{i})=\prod_{i=1}^{n}\mathbb{P}(A_{i})$
+
+Pentru n=3: \newline
+$\mathbb{P}(A_{1}|A_{2})=\mathbb{P}(A_{1})*\mathbb{P}(A_{2})$
+$\mathbb{P}(A_{1}|A_{3})=\mathbb{P}(A_{1})*\mathbb{P}(A_{3})$
+$\mathbb{P}(A_{3}|A_{2})=\mathbb{P}(A_{3})*\mathbb{P}(A_{2})$
+$\mathbb{P}(A_{1}|A_{2}|A_{3})=\mathbb{P}(A_{1})*\mathbb{P}(A_{2})\mathbb{P}(A_{3})$
+
+Pentru n oarecare sunt $(2^{n})-n-1$ \newline
+$\sum_{i=0}^{n}\mathrm{C}_{n}^{i} - \mathrm{C}_{n}^{1} - \mathrm{C}_{n}^{0}$
+
+Independența condiționată: 
+
+Definție: \newline 
+Fie un câmp de probabilități $(\Omega,\mathcal{F}, \mathbb{P})$ și 3 evenimente A, B și C.\newline
+Spunem că $A$ și $B$ sunt conditionate la C, dacă $\mathbb{P}(A\cap B|C) = \mathbb{P}(A|C)*\mathbb{P}(B|C)$.
+
+$\mathbb{Q}(.) = \mathbb{P}(.|C) \Rightarrow \mathbb{Q}(A \cap B) = \mathbb{Q}(A)* \mathbb{Q}(B)$
+
+\subsection{Exemple} 
+\begin{enumerate}
+    \item Aruncăm cu banul de 2 ori: \newline
+$A_{1}$ - evenimentul prin care la prima aruncare am obținut $H$\newline
+$A_{2}$ - evenim prin care la a doua aruncare am obținut $H$ 
+
+$\Omega = \{H,T\}^{2}$\newline
+$A_{1} = \{HH,HT\} \rightarrow \mathbb{P}(A_{1})=\frac{1}{2}$ \newline
+$A_{2} = \{TH,HH\} \rightarrow \mathbb{P}(A_{2})=\frac{1}{2}$\newline
+$A_{1} \cap A_{2} = \{HH\} \rightarrow \mathbb{P}(A_{1} \cap A_{2})=\frac{1}{4}$ (se verifică)
+
+\item
+Fie un zar cu 4 fețe (tetraedru). \newline
+Aruncăm de 2 ori, deci $\Omega = \{1,2,3,4\}^{2}$\newline
+
+Se dau următoatele evenimente:
+
+A = primul zar cade 1 \newline
+B = al doilea are suma fețelor 5
+
+C = minimul dintre zarurile aruncate e 2 \newline
+D = maximul dintre zarurile aruncate e 2
+
+$\mathbb{P}(A)=\frac{1}{4}$, cu $x \in \{1..4\}$;
+$\mathbb{P}(B)=\frac{1}{4}$ ;
+$\mathbb{P}(A \cap B)=\frac{1}{16}$
+
+$\mathbb{P}(C)=\frac{5}{16}$;
+$\mathbb{P}(D)=\frac{3}{16}$; 
+$\mathbb{P}(C \cap D)=\frac{1}{16}$
+
+\item
+Fie evenimentele $A_{1}$ și $A_{2}$ din exercițiul anterior. \newline $A_{3}$ - evenimentul când cele 2 zaruri sunt diferite
+
+$\mathbb{P}(A_{1})=\mathbb{P}(A_{2})=\mathbb{P}(A_{3})=\frac{1}{2}$
+Toate intersecțiile de 2 câte 2 =$\frac{1}{4}$
+Deci $A_{1}$, $A_{2}$, $A_{3}$ sunt independente 2 câte 2
+
+$\mathbb{P}(A_{1}|A_{2}|A_{3})=\mathbb{P}(A_{1})*\mathbb{P}(A_{2})*\mathbb{P}(A_{3})$
+$\emptyset=\frac{1}{8} \rightarrow$ contradicție. \newline
+Concluzie: $A_{1}$, $A_{2}$, $A_{3}$ nu sunt independente.
+
+\item Continuarea exercițiului legat de covid din cursul anterior.
+
+D - o persoană are afecțiunea
+T - testul e pozitiv 
+Presupunem că în populație boala e la 1$\%$ din persoane, iar acuratețea testului e 95$\%$.
+
+$\mathbb{P}(T|D)=95\%$, dar $\mathbb{P}(D|T)=15\%$
+
+Presupunem că se mai efectuează un test (iese tot +) 
+Si rezultatele celor 2 teste sunt independente cu statusul bolii
+
+Care e probabilitatea ca acum persoana să aibă boala
+
+T1 - primul test pozitiv
+T2 - al doilea e pozitiv
+$\mathbb{P}(T1\cap T2|D)=\mathbb{P}(T1|D)*\mathbb{P}(T2|D)$, lafel și pentru $D^{c}$
+
+$ \Rightarrow \mathbb{P}(T1\cap T2) \simeq  0.78$
+
+\end{enumerate}
+
+\section{Variable aleatoare. Repartiția unei v.a. și funcția de repartiție } 
+\subsection{Noțiuni teoretice} 
+
+Definiție: \newline
+Fie câmpul de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$ și $X \to \Omega : \mathbb{R}$ o funcție. \newline
+Spunem că X e o variabilă aleatoare notată: X v.a. dacă multimea
+ $\{w \in \Omega\ | X(w) \le x \in \mathbb{R}\} = \{X\le x\}$
+
+Observații: \newline
+V.a. se notează cu litere mari de la finalul alfabetului
+X poate fi de două tipuri: discretă / continuă 
+$X(\omega)$ e cel mult numărabila ca să fie discretă
+
+Definim: \newline
+\begin{enumerate}
+\item
+Repartiția unei variabile aleatoare \newline
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$ și X o v.a. \newline
+Se numește repartiția lui X (distribuția lui X) prin probabilitatea pe $\mathbb{R}$ definită prin
+$\mathbb{P} x(A) =\mathbb{P}(x \in A)$, pt orice A interval din $\mathbb{R}$
+
+\item Funcția de repartiție (CDF - cumulative definitive function) \newline
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$, X o v.a. \newline
+Definim funcția de repartiție a lui X notată $F:\mathbb{R} \rightarrow \in [0, 1]$
+F(x)=$\mathbb{P}(X<=xC)$ 
+
+Proprietățile funcției de repartiție: 
+\begin{itemize}
+    \item funcția e crescătoare (nu strict) 
+    \item funcția e continuă la dreapta 
+    \item $\lim_{x \to -\infty} F(x) = 0 \newline
+          \lim_{x \to +\infty} F(x) = 1$
+\end{itemize}
+\end{enumerate}
+
+\subsection{Exemple} 
+
+\begin{enumerate}
+\item
+Aruncăm 2 zaruri și definim X suma punctelor de pe cele 2 zaruri
+
+Numărul de $H$ din cele două aruncări ale banului \newline
+Din multimea $\{HH, HT, TH, TT\} \Rightarrow \{0, 1, 2\}$ 
+
+Observație: \newline Preimaginea pentru A în X sunt invers: 
+$X^{-1}(\{0\})=\{TT\}$ etc.
+
+Pentru a demonstra se ia pe cazuri: \newline
+- $x<0 \Rightarrow \emptyset \in \mathcal{F}$ \newline
+- $x \in [0, 1) \Rightarrow \{TT\} \in \mathcal{F}$ \newline
+- $x \in [1, 2) \Rightarrow \{TT, TH, HT\} \in \mathcal{F}$ \newline
+- $x>2 \Rightarrow \Omega \in \mathcal{F}$ \newline
+
+\item
+Luăm la întâmplare un număr de la [0, 1) 
+
+Distanța de la 0 la punct e X variabilă continuă
+Semnul numărului (e în mulțimea $\{-1,0,1\}$), deci discretă
+
+Vrem să calculăm: $P_{X}$ în A unde $A \in \mathbb{R}$
+Pentru $A \notin \mathbb{R}$ e mai complicat (de ex radiograma) 
+\end{enumerate}
+
+\chapter{Curs 6} 
+
+\section{Noțiuni teoretice} 
+
+Fie X v.a și X($\Omega$) mulțimea valorilor lui X. Dacă această mulțime este cel mult numarabilă, atunci este discretă, altfel este continuă.
+ 
+Fie $X \to \Omega : \mathbb{R}$, vrem să calculăm $P(X \in A)$
+(2) \newline
+Definiție: \newline
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$ și X v.a. discretă. Se numește funcția de masă asociată (PMF - probability mass function), funcția $f(x)=\mathbb{P}(X=x),  cu x \in X(\Omega), f:X(\Omega) \in [0,1]$
+
+Observație:\newline
+Se mai folosește și notația $p_{X}$ sau $p_{X_{x}}$.
+
+Proprietăți: \newline
+1 - e pozitivă în fiecare punct \newline
+2 - $\mathbb{P}(\Omega)=1$ și $\Omega$ e reuniunea de sus, atunci: \newline $\sum_{x \in X(\Omega)}^{}f(x)$, (deci masa totală e 1)
+ 
+Legătura dintre funcția de masă și funcția de repartiție: \newline 
+$F(x) = \mathbb{P}(X\le x) = \sum_{y \in X(\Omega)}f(y) \newline f(x) = F(x) - F(-x)$
+
+\section{Exemple} 
+\begin{enumerate}
+\item
+Aruncăm de 3 ori cu banul, X numărul de $H$ găsiți \newline
+$f(x)=\mathbb{P}(X=x)$ (calculat la cursul anterior) \newline
+Pentru: \newline
+$x=0 \Rightarrow \frac{1}{8},\newline x=1 \Rightarrow \frac{3}{8}, \newline x=2 \Rightarrow \frac{3}{8}, \newline x=3 \Rightarrow \frac{1}{8}$
+
+\item
+Presupunem v.a. X=c, constantă  \newline
+f(x)=1 dacă x=c, 0 altfel \newline
+F(x)=0 daca x<c, 1 altfel \newline
+
+\item
+Presupunem variabila aleatoare de tip Bernoulli (care ia 2 valori) \newline
+Avem un experiment și un eveniment A de interes. \newline Presupunem că $\mathbb{P}(A) e P \in [0,1]$
+
+Fie $X \to \Omega : \mathbb{R}$ și $X(\Omega)= 1$, dacă $W \in A$, 0 altfel.
+
+$f(1)=\mathbb{P}(A)=p, f(0)=\mathbb{P}(A^{c})=1-p \newline
+F(x)=0$ pentru $x<0, \newline F(x)=1-p$ pentru $0\le x<1, \newline F(x)=1$ pentru $x \ge 1$
+
+Scriem sub forma compactă a funcției de masă \newline
+$f(x) = p^{x}(1-p)^{1-x}, x \in \{0,1\}$
+
+\item
+Cazul general \newline
+Fie X cu $x_{1}, x_{2}... x_{n}$ și fiecare cu $\mathbb{P}(x _{i})=pi \Rightarrow $ suma tuturor este 1.
+
+\item
+V.a de tip binomial \newline
+
+Presupunem că avem un experiment aleator și un eveniment A de interes. Repetăm experimentul de n ori și ne interesează numărul de realizări ale lui A.  \newline
+X - nr realizări în n repetări 
+
+Notăm $X \sim  B(n, p)$ variabila repartizată binomial de parametri n și p, unde: \newline
+- n e nr de repetari \newline
+- p probab in cadrul experim de realizare a lui A
+
+$X \in \{0...n\}$
+$f(k)= \mathbb{P}(x=k) =? \newline
+\mathbb{P}(x=k) = \binom{1}{k}* (1-p)^{n-k}*p^{k} \newline \sum_{k=0}^{n}\mathbb{P}(x=k) = 1 $ (Adevărat)
+
+Analog: \newline
+Într-o urnă avem N bile albe și negre, M negre \newline
+Extragem n bile cu întoarcere \newline
+Ne interesează nr de bile negre din cele n extrase. \newline
+$X \sim B(n, \frac{M}{N})$
+
+\item V.a. repartizată hipergeometrica
+
+Avem o urnă cu N bile albe și negre și M de culoare neagră. \newline
+Extragem n bile fără întoarcere. \newline
+Ne interesează nr de bile negre din cele n extrase.
+
+X e repartizată hipergeometric HG(n, N, M) \newline
+$\mathbb{P}(X=k) = \frac{\mathrm{C}_{M}^{k} * \mathrm{C}_{N-M}^{n-k}}{\mathrm{C}_{N}^{n}}$
+
+\end{enumerate}
+
+\chapter{Curs 7} 
+
+\section{Recapitulare}  
+O urna cu bile numerotate de la 1 la 100. Extragem 5. \newline
+a) care este Repartiția variabilei aleatoare care da bilele cu nr mai mare ca 70? \newline
+b) cum e reprez v.a care da a 3-a extragere? \newline
+c) șansă ca numărul 79 sa fie extras cel puțin odată?\newline
+
+Soluție: \newline
+1. extragerea cu revenire \newline
+a) $X \sim  B(5,\frac{31}{100})$ Probababilitatea să avem succes \newline
+b) $X_{1}, X_{2},... X_{100} \in {1..n}$\newline
+$X_{i} ~ U(\{1...100\})$, cu $X_{i}$ independente \newline
+c) {79 extras măcar odată} = ${X_{1}=79}$ sau ${X_{2}=79}$ sau... sau ${X_{5}=79}$ \newline
+= $1- P( {X_{1} \neq 79} si... si {X_{5} \neq 79})$ \newline
+evenimente independente disjuncte
+= $1- P({X_{1} \neq 79})*...*P({X_{5} \neq 79})
+= 1- (\frac{99}{100})^{5}$ \newline
+2. extragere fără întoarcere  \newline
+a) $Y \sim HG(5,100,31)$ \newline
+b) $Y_{1},... Y_{5}$ \newline
+$Y_{i} \sim U({1...100})$, dar $Y_{i}$ nu sunt independente\newline
+$\Omega=\bigcup_{1}^{100} \{y_{i}=I\}$ \newline  
+O partiție a lui $\Omega: B_{1} \cup B_{1} ... \cup B_{1} $ disjuncte 2 câte 2 (1)\newline
+c) {79 extras măcar odată} = ${Y_{1}=79}$ sau ${Y_{2}=79}$ sau... sau ${Y_{5}=79}$ nu sunt disjuncte \newline
+= $\sum_{1}^{5} P({Y_{i}=79})$, deci $\frac{5}{79}$\newline
+\section{Reprezentarea geometrica și negativ binomială}
+Aruncăm cu o monedă in mod repetat cu șansa de succes = p pentru H. X e v.a. care ne dă numărul de aruncări pana obținem succes (incluzând și primul succes)\newline 
+$X \in {1,2,...} = \mathbb{N*}$\newline
+Vrem sa calculăm funcția de masă: \newline
+$\mathbb{P}(X=k)$ e 1-p la k-1 * p\newline
+Înseamnă că primele k-1 aruncări sunt $T$ și a k-a e $H$\newline
+$X \sim G(p)$ (2)\newline
+Definim: \newline 
+V.a. Z care ne dă numarul de aruncări până când obținem a r-a oară succes se numește negativ binomială și se notează:\newline 
+$Z \sim NB(r, p)$, Z={r, r+1,...}, $\mathbb{P}(Z=k)$ \newline
+Presupunem k=7, r=3 (3)
+V.a. de tip Poisson: \newline 
+Spunem că o variabilă aleatoare X este repartizată Poisson de parametru $\lambda$ dacă $x \in \mathbb{N}$  și \newline 
+$\mathbb{P}(X=k) =  e^{- \lambda * \lambda ^ {\frac{k}{k!}}}$ \newline
+Cand se folosește? \newline 
+Poate fi văzut ca o binomială, doar că M e foarte mare și N e foarte mic \newline 
+$\sum_{k=0}e^{-\lambda}\frac{\lambda^{k}}{k!}$
+
+Aproximarea Poisson a binomialei \newline 
+$X \sim B(n, p)$
+Avem $\mathbb{P}(X=k)= \binom{1}{k}* (1-p)^{n-k}*p^{k}$.
+
+Presupunem că n e mare și p e mic a.î. n*p tinde la $\lambda$
+$\mathbb{P}(X=k)= \frac{n!}{k!(n-k)!}*(\frac{\lambda}{n})^{k}*(1-\frac{\lambda}{n})^{n-k}= \frac{n!}{(n-k)!n^{k}}*\frac{\lambda^{k}}{k!}*(1-\frac{\lambda}{n})^{n}*(1-\frac{\lambda}{n})^{-k}$, unde, pentru n $\longrightarrow \infty $:\newline
+$ \frac{n!}{(n-k)!n^{k}} \longrightarrow 1 $, $\frac{\lambda}{n} \longrightarrow 0$, $
+1-\frac{\lambda}{n} \longrightarrow 1 \newline$
+Cazul de $1^{\infty}$ se rezolvă cunoscând formula $e^{x}= \sum_{k=0}\frac{x^{k}}{k!} $
+
+\chapter{Curs 8} 
+\section{Recapitulare} 
+
+Definiție: \newline 
+Fie $(\Omega, \mathcal{F}, \mathbb{P})$ și $X \to \Omega : \mathbb{R}$ un câmp de probabilitate si v.a. discretă, definim media:\newline
+$\mathbb{E}[X]= \sum_{x} x\mathbb{P}(X=x) = \sum_{x} x f(x)$
+ori de câte ori $\sum\left | x \right|f(x) < \infty $\newline
+În cazul în care seria este $\infty$ atunci spunem că v.a. X nu are medie.\newline
+
+Proprietăți: \newline
+1) Dacă X este constantă $\Rightarrow$ media este acea constantă ($X=c \Rightarrow \mathbb{E}[X] = c $) \newline 
+2) Dacă $X \ge 0$ atunci $\mathbb{E}[X] \ge 0$ (pozitivitate) \newline 
+3) Dacă $X \ge Y$ atunci $\mathbb{E}[X] \ge \mathbb{E}[Y]$ (monotonie) ($X(\omega) \ge Y(\omega) \forall \omega \in \Omega$) \newline 
+4) Dacă X și Y v.a. discrete și $a,b \in \mathbb{R}$ atunci $\mathbb{E}[X+Y]=\mathbb{E}[X]+\mathbb{E}[Y]$ (liniaritate) \newline 
+5) Legătura dintre medie și probabilitate: \newline 
+Fie $A \in \mathcal{F} $ eveniment. \newline 
+$1_{A}=\{\mathrm{ }_{1, w \notin A}^{0, \omega \in A} \newline
+\mathbb{P}(1_{A}=1)= \mathbb{P}(A) \newline
+1_{A}\sim (\mathrm{ }_{1-\mathbb{P}(A))}^{0} \mathrm{ }_{\mathbb{P}(A)}^{1}) \newline
+\mathbb{E}(1_{A})= \mathbb{P}(A)$ \newline
+6) Fie X v.a. discretă, $g:\mathbb{R} \Rightarrow \mathbb{R}$ și y=g(x)\newline
+Atunci: \newline
+$\mathbb{E}[g(x)]= \sum_{x} g(x)\mathbb{P}(X=x) \newline$ \newline
+Demonstrație:\newline
+$\mathbb{E}[y]= \sum_{y} y\mathbb{P}(Y=y) \newline
+\mathbb{P}(Y=y)=\mathbb{P}(g(x)=y)=\mathbb{P}(X \in g^{-1}(y)) \newline
+g^{-1}(y)=\{x,$ unde $g[x]=y\}= \sum_{x \in g^{-1}(y)} \mathbb{P}(X=x)\newline
+\mathbb{E}[g(x)]=\mathbb{E}[Y]= \sum_{y} y \sum_{x \in g^{-1}(y)} \mathbb{P}(X=x)
+= \sum_{x}g(x)\mathbb{P}(X=x)$\newline
+\section{Exemple}
+\begin{enumerate}
+\item
+Aruncăm cu un zar. \newline
+$X \in {1,2,3,4,5,6} \newline \mathbb{X}=x = \frac{1}{6}$, deci $\mathbb{E}[X] = \sum_{x}\mathbb{P}(X=x)= 1 * \frac{1}{6} + ... + 6 * \frac{1}{6} = 3,5 $
+\item 
+$X \sim \binom{x_{1}...x_{n}}{p_{1}...p_{n}}$ \newline
+$\mathbb{E}[X]=x_{1}p_{1}+...+x_{n}p_{n}$\newline
+$(\mathrm{ }_{\frac{1}{2}}^{-1} \mathrm{ }_{\frac{1}{4}}^{0} \mathrm{ }_{\frac{1}{4}}^{1})$\newline
+$\mathbb{E}[X]=-\frac{1}{2}+-\frac{1}{4}=-\frac{1}{2}$\newline
+\item
+Aruncăm cu o monedă de 10 ori. \newline
+X={nr de H din cele 10 aruncări}\newline
+$\{X=k\}=\{(\omega_{1},...\omega_{10}) | \omega_{i} \in \{H,T\}$ și exact k sunt $H$ \newline
+$\Omega= \{H,T\}^{10}$ \newline
+$X \sim B(10,p)$ \newline
+$\mathbb{P}(X=k) = \binom{10}{k} * p^{k} * (1-p)^{10-k}$ \newline
+Deci, $\mathbb{E}[X+Y] = \sum_{\omega}(X+Y)_{\omega} \mathbb{P}(\{\omega\}) = \sum_{\omega} (X(\omega) + Y (\omega))\mathbb{P}(\{\omega\})$\newline
+$=\sum_{\omega}X(\omega)\mathbb{P}(\{\omega\})+\sum_{\omega}Y(\omega)\mathbb{P}(\{\omega\})$\newline
+\item
+$X \sim (\mathrm{ }_{\frac{1}{4}}^{-2} \mathrm{ }_{\frac{1}{8}}^{-1} \mathrm{ }_{\frac{1}{2}}^{1} \mathrm{ }_{\frac{1}{8}}^{3}) $ \newline
+$y=X^2$ \newline
+Metoda 1: \newline
+$y \in \{1,4,9\} $ \newline
+$\mathbb{P}(y=1) = \mathbb{P} (X=-1) + \mathbb{P} (X=1)$ \newline 
+$ =\frac{1}{8} + \frac{1}{2} = \frac{5}{8} $ \newline
+$y=X^{2} \sim (\mathrm{ }_{\frac{5}{8}}^{1} \mathrm{ }_{\frac{4}{8}}^{4} \mathrm{ }_{\frac{1}{8}}^{9})$ \newline
+$\mathbb{E}[X^2]=\frac{5}{8} + \frac{8}{8} + \frac{9}{8} = \frac{22}{8}$ \newline \newline
+Metoda 2: \newline
+$g(x)=x^2$ \newline
+$\mathbb{E}[X^2]=(-2)^2 * \frac{1}{4} + (-1)^2 * \frac{1}{2} + (1)^2 * \frac{1}{8} + (3)^2 * \frac{1}{8} = \frac{22}{8} $ \newline
+\end{enumerate}
+Definiție:\newline
+Fie X o v.a. discretă, numim moment de ordin $k \ge 1$, ca fiind $\mathbb{E}[X^k]$. \newline
+Se numește moment de ordin k centrat in $a \in \mathbb{R}, \mathbb{E}[(X-a)^k]$ și moment central de ordin k, $\mathbb{E}[(X-\mathbb{E}[X])^k]$. \newline
+
+Definiție: Varianța sau dispersia v.a. X este momentul centrat de ordin 2 și se notează cu: \newline
+Var(X) = $\mathbb{E}[(X-\mathbb{E}[X])^2]$  \newline
+
+Observație : Arată gradul de împărțire a observației față de medie. \newline
+$X_{1} \sim ( \mathrm{ }_{\frac{1}{5}}^{1} \mathrm{ }_{\frac{1}{5}}^{2} \mathrm{ }_{\frac{1}{5}}^{3} \mathrm{ }_{\frac{1}{5}}^{4} \mathrm{ }_{\frac{1}{5}}^{5})$ \newline
+$X_{2} \sim (\mathrm{ }_{\frac{1}{10}}^{1} \mathrm{ }_{\frac{2}{10}}^{2} \mathrm{ }_{\frac{4}\newline{10}}^{3} \mathrm{ }_{\frac{2}{10}}^{4} \mathrm{ }_{\frac{1}{10}}^{5})$ \newline
+$X_{3} \sim (\mathrm{ }_{\frac{1}{2}}^{1} \mathrm{ }_{0}^{2} \mathrm{ }_{0}^{3} \mathrm{ }_{0}^{4} \mathrm{ }_{\frac{1}{2}}^{5})$ \newline
+$X_{4} \sim (\mathrm{ }_{0}^{1} \mathrm{ }_{0}^{2} \mathrm{ }_{0}^{3} \mathrm{ }_{0}^{4} \mathrm{ }_{0}^{5})$ \newline
+$\mathbb{E}[X_{1}]=\mathbb{E}[X_{2}]=\mathbb{E}[X_{3}]=\mathbb{E}[X_{4}]=3$ \newline
+$Var(X_{1})=\mathbb{E}[(X_{1}-3)^2]=\frac{10}{5}=2$  \newline
+$Var(X_{2})=\mathbb{E}[(X_{2}-3)^2]=\frac{12}{10}$  \newline
+$Var(X_{3})=\frac{8}{2}=4$ \newline
+$Var(X_{4})=0$ \newline
+
+Proprietați ale varianței: \newline
+1) Dacă X=c (cnst) $\Rightarrow Var(X) = 0.$ \newline
+2) $Var(X) \ge 0 $\newline
+3) Dacă X v.a. și $a \in \mathbb{R}$ atunci Var(a+X) = Var (X) = 0 \newline
+4) Dacă X v.a. și $b \in \mathbb{R^*}$ atunci $Var(b*X) = b^2 * Var(X)$ \newline
+$Var(bX) = \mathbb{E}[(bX - \mathbb{E}[bX])^2]$ \newline
+$= \mathbb{E}[b^2 * (X - \mathbb{E}[X])^2]$ \newline
+5) $Var(a+bX) = b^2 * Var(X); \forall a,b \in \mathbb{R} $\newline 
+6) $Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X] ^ 2$ \newline 
+7) X și Y v.a. independente \newline 
+
+Definiție: \newline
+Fie X,Y - v.a. se numește covarianța lui X si Y: \newline
+Cov(X,Y)=$\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]$ \newline
+
+Definiție: Se numește abatere starndard: \newline
+$SD(X)=\sqrt{Var(X)}$ \newline
+$\sigma ^ 2$ se notează Varianță \newline
+$\sigma$ se notează Abatere standard \newline
+\section{Variabile aleatoare. Continuare}
+
+Definiție:\newline
+Fie un câmp de probabilități $(\Omega, \mathcal{F}, \mathbb{P})$ si X: $\mathbb{\Omega} \to \mathbb{R}$ v.a.\newline
+X este continuă (absolut continuă) dacă există $f: \mathbb{R} \to \mathbb{R_{+}}$ cu proprietatea : \newline
+$\mathbb{P}(X \in A) = \int_{A}f(x)dx, \forall A \subseteq \mathbb{R}$ \newline
+
+Observație: Dacă A=(a,b) \newline
+$\mathbb{P}(a<X<b) = \int_{a}^{e}f(x)dx $ \newline
+Daca f e densitate de repartiție : \newline
+1) $f \ge 0$ \newline
+2) $\int_{\mathbb{R}}f(x)dx = \int_{-\infty}^{\infty} f(x)dx = 1 $ \newline
+$\mathbb{P}(X \in \mathbb{R}) = \mathbb{P} (\Omega) =1 $ \newline
+
+Observație: \newline
+$\mathbb{P}(X=a) = \int_{a}^{a} f(x)dx = 0 $  \newline
+A={a} \newline
+$\mathbb{P}(a<X<b)=\mathbb{P}(a \le X<b)$ \newline
+$= \mathbb{P}(a \le X \le b)$ \newline
+$= \mathbb{P}(a < X \le b)$\newline 
+\chapter{Curs 10} 
+$f(x)=\frac{1}{\sqrt{2\pi}}*e^{-\frac{x^{2}}{2}} , x\in\mathbb{R}$ \newline
+Simetricul fata de : \newline
+$\varphi(x)=\varphi(-x)\Phi(x)=\int_{-\infty}^{x}\varphi(t)dt$ \newline
+$\varphi$ Densitate:  \newline
+1)$\varphi(x) \ge 0$ \newline
+2)$\int_{-\infty }^{\infty } \varphi(x)dx=1$ \newline
+$X \sim N(0,1)$ normala standard \newline
+$\mathbb{E} [x] = \int_{-\infty }^{\infty } \varphi(x)dx = \int_{-\infty }^{\infty } \frac{x}{\sqrt{2\pi}}*e^{-\frac{x^{2}}{2}} dx = 0$ \newline
+Var(X)=$\mathbb{E} [x^{2}]- \mathbb{E} [x] ^{2}$\newline
+$\mathbb{E} [x^{2}] = \int x^{2} \varphi(x) dx = \int_{-\infty }^{\infty }\frac{x^{2}}{\sqrt{2\pi}}*e^{-\frac{x^{2}}{2}}dx=\int_{-\infty }^{\infty } \frac{x}{\sqrt{2\pi}} \left( -e^{{-\frac{x^{2}}{2}}} \right)' dx \Rightarrow Var(X) =1$ \newline
+
+Observație:\newline
+Dacă $X \sim N(0,1)$ atunci $\mathbb{E} [x] = 0 $ si Var(X) = 1  \newline
+
+Definiție:\newline
+Spunem că v.a. $X \sim N(\mu,\nabla ^{2})$ dacă admite densitatea de repartiție : \newline
+$f(x) = \frac{1}{\sqrt{2\pi\nabla}} * e ^\frac{(x-\mu)^{2}}{2\nabla ^{2}} , x\in\mathbb{R}$ \newline
+Dacă $X \sim N(\mu,\nabla ^{2})$ atunci $\exists Z\sim N(0,1)$ a.î. $X = \mu + \nabla Z $  \newline
+
+Repartiție normală \newline
+ $X \sim N(\mu,\nabla ^{2})  \Rightarrow \mathbb{E} [X] = \mathbb{E}[\mu+\nabla Z] * \mu + \nabla \mathbb{E} [Z] = \mu$ \newline
+ $Z \sim N(2,1)$ \newline
+ $Var(X)= Var(\mu+\nabla Z) =  \nabla ^{2} Var(Z) = \nabla ^{2} $ \newline
+ $F(x)=\mathbb{P}(x\le x) = \mathbb{P}(\mu + \nabla Z \le x) = \mathbb{P}(Z\le \frac{x-\mu}{\nabla }) = \Phi \left( \frac{x-\mu}{\nabla } \right)$ \newline
+$f(x)=\frac{d}{dx}F(x)=\frac{d}{dx}\Phi\left( \frac{x-\mu}{\nabla } \right) = \varphi\left( \frac{x-\mu}{\nabla } \right) \frac{1}{\nabla }$  \newline
+$(f\circ g)' = f'(g) * g' $ \newline
+\section{Exemple}
+\begin{enumerate}
+\item
+$X \sim N(-1,4)$ \newline
+$\mathbb{P}(|x|<3)$ \newline
+Pas 1: Standardizare :  \newline
+$\mathbb{P}(-3<x<3) = \mathbb{P} (-3 - (-1) < x - (-1) < 3 - (-1)) = \mathbb{P} (-2 < x+1 < 4)$ \newline
+$\mathbb{P}\left( -\frac{2}{2} < \frac{x+1}{2} < \frac{4}{2} \right) = \mathbb{P}\left( -1 < \frac{x+1}{2} < 2\right) \sim N(0,1)$ \newline
+$=  \mathbb{P} (-1 \le Z \le 1) + \mathbb{P} (1 \le Z \le 2)$ \newline
+\item
+$Y \sim N(0,1), X=|Y|$ \newline
+$\mathbb{E} [X] , Var[X], f(x)$ \newline
+$\mathbb{E}[|Y|]=\int_{-\infty }^{\infty } |x|\varphi(x)dx = 2\int_{0}^{\infty }\frac{x}{\sqrt{2\pi}}e^{-\frac{x^{2}}{2}}dx= \sqrt{\frac{2}{\pi}}\left( -e^{-\frac{x^{2}}{2}} \right) = \sqrt{\frac{2}{\pi}}$ \newline
+$Var(|Y|)= \mathbb{E}[|Y|^{2}]- \mathbb{E}[|Y|]^{2} = \mathbb{E}[Y^{2}]-\frac{2}{x} = 1 - \frac{2}{\pi}$ \newline
+$F_{x}(x)=\mathbb{P}(x\le x) = \mathbb{P}(|Y|\le x)$ \newline
+Dacă $x<0 \Rightarrow F_{x}(x)=0$ \newline
+Dacă $x>0 \Rightarrow F_{x}(x) = \mathbb{P}(-x \le Y \le x) = \Phi(x) - \Phi(-x) = 2\Phi (x) $ \newline
+\end{enumerate}
+\section{Repartiții comune, marginale și condiționate}
+
+x,y două v.a. $(\Omega, \mathcal{F}, \mathbb{P})$ \newline
+$\mathbb{P}((x,y) \in A*B)$\newline
+$\mathbb{P}(x \in A) sau \mathbb{P} (y \in B)$\newline
+$\mathbb{P}(x \in A | y \in B)$\newline
+1. Cazul discret :\newline
+Fie $(\Omega, \mathcal{F}, \mathbb{P})$ un camp de probabilitați si $X:\Omega \to \mathbb{R}, Y:\Omega \to \mathbb{R}$\newline
+$X(\Omega)= {x_{1},...x_{m}}$\newline
+$Y(\Omega)= {y_{1},...y_{m}}$\newline
+Perechea $(X,Y) : \Omega \to \mathbb{R} ^{2} $ \newline
+Funcția de masă a(X,Y)\newline
+$f_{x,y} (x,y) = \mathbb{P}(X=x,Y=y) \forall x \in {x_{i},...,x_{m}}, y \in {y_{i},...,y_{m}}$\newline
+
+Proprietăți:\newline 
+a)$f_{x,y} \ge 0, \forall x,y$\newline
+b)$ \sum_{x \in X(\Omega)}  \sum_{y \in Y(\Omega)} f_{x,y}(x,y)=1$ \newline
+$f_{x}(x)=\sum_{y}f_{x,y}(x,y) \longrightarrow $ funcția de masă a lui x rep marginală a lui x \newline
+$f_{y}(y)=\sum_{x}f_{x,y}(x,y) \longrightarrow $ reprezentarea marginală pentru y \newline
+Fie X o v.a. adevarată si $A \in \mathcal{F}, \mathbb{P}(A) > 0$\newline
+$\mathbb{P}(X=x|A)=\frac{\mathbb{P}(X=x) \cap A}{\mathbb{P}(A)}$\newline
+
+Dacă A={Y=y} atunci $\mathbb{P}(X=x|Y=y)= \frac{\mathbb{P}(X=x,Y=y)}={\mathbb{P}(Y=y)}=\frac{f_{x,y}(x,y)}{f_{y}(y)}$\newline
+$f_{x|y}(x|y)=\frac{f_{x,y}(x,y)}{f_{y}(y)}$\newline
+$f_{y|x}(y|x)=\frac{f_{x,y}(x,y)}{f_{x}(x)} \longrightarrow$ funcția de masă condiționată a lui y la x \newline
+\section{Formula probabilității totale}
+$B,A_{1},...A_{N} \in \mathcal{F}$\newline
+$A_{1},...,A_{2}$ formăm o partiție pe $\Omega $ \newline
+$\mathbb{P}(B)=\sum_{i=1}^{n}\mathbb{P}(B|A_{i})\mathbb{P}(A_{i})$\newline
+
+Dacă $B=\left\{ X=x \right\} \Rightarrow \mathbb{P}(X=x) = \sum_{i=1}^{n} \mathbb{P}(X=x|A_{i})\mathbb{P}(A_{i})$ \newline
+$A=\left\{ Y=y_{i} \right\} \Rightarrow \mathbb{P}(X=x) = \sum_{i=1}^{n}\mathbb{P}(X=x|Y=y_{i})\mathbb{P}(Y=y_{i})$\newline
+$f_{x}(x)=\sum_{i=1}^{n}f_{x|y}(x|y_{i})f_{y}(y_{i})$\newline
+$\mathbb{P}(A\cap B) = \mathbb{P}(A)* \mathbb{P}(B|A) =\mathbb{P}(B)\mathbb{P}(A|B)$\newline
+$A=\left\{ X=x \right\}, B=\left\{ Y=y \right\}$\newline
+$\mathbb{P}(X=x,Y=y)=\mathbb{P}(X=x)\mathbb{P}(Y=y|X=x)=\mathbb{P}(Y=y)\mathbb{P}(X=x|Y=y)$\newline
+$f_{x,y}(x,y)=f_{x}(x)f_{y|x}(y|x)=f_{y}(y)f_{x|y}(x|y)$\newline
+
+Formula lui Bayes : \newline
+$\mathbb{P}(X=x|Y=y)=\mathbb{P}(X=x)\mathbb{P}(Y=y,X=x)$\newline
+$f_{x|y}(x|y)=\frac{f_{x}(x)f_{y|x}(y|x)}{\sum_{x'}f_{x}(x')f_{y|x}(y|x')}$\newline
+$\mathbb{P}(Y=y)=\frac{\mathbb{P}(X=x)\mathbb{P}(Y=y|X=x)}{\sum_{x'}\mathbb{P}(X=x')\mathbb{P}(Y=y|X=x')}$\newline
+
+Media unei funcții  de v.a. \newline
+X v.a. $\Omega \to \mathbb{R}, g: \mathbb{R} \to \mathbb{R}$\newline
+$\mathbb{E}[g(x)]=\sum_{x}g(x)\mathbb{P}(X=x)$\newline
+$\mathbb{E}[xy]=\sum_{x,y}xy\mathbb{P}(X=x,Y=y)$\newline
+$x,y : \Omega \to \mathbb{R}, g:\mathbb{R}^{2} \to \mathbb{R}$\newline
+$\mathbb{E}[g(x,y)]=\sum_{x,y}g(x,y)\mathbb{P}(X=x,Y=y)$\newline
+//curs 12
+\chapter{Curs 12} 
+\section{Cazul discret}
+
+X,Y v.a. discrete, $X \in {x_{i},...,x_{n}}, Y \in {y_{1},...,y_{n}}$\newline
+$f_{x,y}(x,y) = \mathbb{P} (X=x,Y=y)$ repartiția normală \newline
+$f_{x}(x)=\mathbb{P} (X=x) = \sum_{y}f_{x,y}(x,y)$ \newline
+$f_{y}(y)=\mathbb{P} (Y=x) = \sum_{x}f_{x,y}(x,y)$ \newline
+repartiții marginale \newline
+
+\subsection{Repartiția condiționată}   
+$f_{x|y}(x|y)=\mathbb{P}(X=x|Y=y) = \frac{f_{x,y}(x,y)}{f_{y}(y)}$ \newline
+$f_{y|x}(y|x)=\mathbb{P}(Y=y|X=x) = \frac{f_{x,y}(x,y)}{f_{x}(x)}$\newline
+
+Media condiționată: \newline
+Dacă X v.a. discretă si $A \in \mathcal{F}, \mathbb{P} (A) > 0$ atunci am văzut că $f_{x,y}(x)=\mathbb{P} (X=x|A)$ probabilitate \newline
+
+Media condiționată a lui X la A: \newline
+$\mathbb{E}[X|A]=\sum_{x}x*\mathbb{P}(X=x|A)=\sum_{x}x*f_{X|A}(x)$\newline
+Dacă g este o funcție atunci g(x) este o v.a. discretă și $\mathbb{E}[g(x)|A]=\sum_{x}g(x)*f_{X|A}(x)$\newline
+Dacă $A=\left\{Y=y\right\}$ atunci \newline
+$\mathbb{E}[X|Y=y]=\sum_{x}x*f_{x|y}(x|y)$ \newline
+media condiționată a lui X la Y=y \newline
+
+Dacă X și Y sunt v.a. discrete atunci \newline
+$\mathbb{E}[x]=\sum_{y}\mathbb{E}[X|Y=y]*\mathbb{P}(Y=y)$\newline
+$\mathbb{E}[X|Y=y]=\sum_{x}x*f_{x,y}(x|y), f_{x,y}(x|y)=\frac{f_{x,y}(x,y)}{f_{y}(y)}$\newline
+$\sum_{y}\sum_{x}x*f_{x|y}(x|y)*f_{y}(y)=\sum_{x}x\sum_{y}f_{x,y}(x,y)=\mathbb{E}[x]$\newline
+
+Definiție:\newline
+Fie X și Y două v.a. discrete. Se numește media condiționată a lui X la Y și se noteaza $\mathbb{E}[X|Y]$, v.a. de forma h(Y) pentru care $h(y)=,\mathbb{E}[X|Y=y] \forall y$\newline
+
+Media mediei condiționate este\newline
+$\mathbb{E}[\mathbb{E}[X|Y]]=\mathbb{E}[X]$\newline
+$\mathbb{E}[X|Y]\sim \binom{\mathbb{E}[X|Y=y_{1}]...\mathbb{E}[X|Y=y_{n}]}{\mathbb{P}(Y=y_{1})...\mathbb{P}(Y=y_{n})}$\newline 
+
+\section{Cazul v.a.}
+Conține: repartiție comună, repartiție marginală si repartiție condiționată. \newline
+
+Definiție: Fie $(\Omega, \mathcal{F}, \mathbb{P})$ un câmp de probabilitați și X,Y două v.a. continue. Spunem că vectorul (X,Y) formează o pereche de v.a. continue dacă există o funcție $f_{(x,y)}(x,y) \ge 0$ cu proprietatea:\newline
+$\mathbb{P}((x,y)\in A)=\int\int_{A} f_{(x,y)}(x,y)dx,dy \forall A\subseteq \mathbb{R}^2$\newline
+Funcția $f_{(x,y)}(x,y) : \mathbb{R}^2 \to \mathbb{R}$ se numește densitatea comună a (x,y).\newline
+
+Dacă A=[a,b]*[c,d]\newline
+$\mathbb{P}((X,Y)\in [a,b] * [c,d])= \mathbb{P}(a \le X \le b, c \le Y \le d)=\int_{a}^{b}\int_{c}^{d}f_{(x,y)}(x,y)dxdy$\newline
+Dacă $A=mathbb{R}^2$ atunci: \newline
+$\mathbb{P}((X,Y)\in \mathbb{R}^2) = \int\int_{\mathbb{R}^2}f_{(x,y)}(x,y)dxdy=1$\newline
+$f_{(x,y)}$ este densitatea $\Leftrightarrow $\newline
+a) $f_{(x,y)} \ge 0$ \newline
+b) $\int\int_{\mathbb{R}^2} f_{(x,y)} (x,y) dxdy=1$ \newline
+
+Observație:\newline
+Dacă știm $f_{(x,y)} (x,y)$ atunci putem calcula orice probabilitate de tipul $\mathbb{P}(X \in A, Y \in B)$ \newline
+$f_{(x,y)}(x,y)$ conține toată informația despre X și Y \newline
+Repartiție uniformă pe $S \subseteq \mathbb{R}^2$ \newline
+Presupunem că $S \subseteq \mathbb{R}^2$ marginită \newline
+$(X,Y)\sim U(S) $ dacă $\exists f_{(x,y)}(x,y) \ge 0$ astfel încat: \newline
+$f_{(x,y)}(x,y)$ = \newline
+c, $(x,y) \in S$ \newline
+0, altfel \newline
+
+Cum $f_{(x,y)}$ este densitate $\Rightarrow c \le 0$ și $\int\int_{\mathbb{R}^2}f_{(x,y)}(x,y)dxdy=1 \Rightarrow \int\int_{\mathbb{R}^2} c * f_{(x,y)}(x,y)dxdy=1 $\newline
+$c=\frac{1}{\int\int_{S}1dxdy}=\frac{1}{Aria(S)}$\newline
+S=[a,b]*[c,d]\newline
+$f_{(x,y)}(x,y)$= \newline
+$\frac{1}{Aria(S)}, (x,y) \in S$ \newline
+0, altfel \newline
+$\mathbb{P}((X,Y) \in A) = \int\int_{A}f_{(x,y)}(x,y)dxdy=\int\int_{A}\frac{1}{Aria(S)}\mathbb{1}_{S}(x,y)dxdy=\frac{\int\int_{A}\mathbb{1}_{S}(x,y)dxdy}{Aria(S)}=\frac{\int\int_{A\cap S}1dxdy}{Aria(S)}=\frac{Aria(A\cap S)}{Aria(S)}$\newline
+
+\subsection{Repartiții condiționate}
+
+Fie $(\Omega, \mathcal{F}, \mathbb{P})$ un câmp de probabilitate si X o v.a. continuă si $A \in \mathcal{F}$ cu $\mathbb{P}(A) > 0$\newline
+Definim densitatea condiționată a lui X la A, $f_{X|A}(x)$ funcția $f_{X|A}(x) \ge 0$ care verifică $\mathbb{P}(X \in B|A)=\int_{B}f_{X|A}(x)dx \forall B\subseteq R$\newline
+
+Observații:\newline
+1. Dacă B=R $\Rightarrow \mathbb{P}(X \in B|A)=1$\newline
+altfel $\int_{\mathbb{R}}f_{X|A}(x)dx=1, f_{X|A} \ge 0 \Rightarrow f_{X|A} $ este o densitate de probabilități\newline
+2. În cazul lui A considerăm $ev\left\{ X\in A \right\}$ astfel încat $\mathbb{P}(X\in A) > 0$\newline
+$\mathbb{P}(X\in B|X\in A)=\frac{\mathbb{P}(X\in B|X\in A)}{\mathbb{P}(X\in A)}=\frac{\mathbb{P}(X\in A\cap B)}{\mathbb{P}(X\in A)}$\newline
+
+Cum X v.a. continuă si densitatea $f_{x}$ avem:\newline
+$\mathbb{P}(X\in B|X\in A) = \frac{\int_{A\cap B}f_{x}xdx}{\mathbb{P}(X\in A)}$\newline
+$\mathbb{P}(X\in B|X\in A) = \int_{B}f_{x|\left\{ X\in A \right\}(x)dx}$\newline
+$\Rightarrow \int_{B}f_{x|\left\{ x\in A \right\}(x)dx}=\int_{A\cap B}\frac{f_{x}(x)dx}{\mathbb{P}(x\in A)}=\int_{B}\frac{f_{x}(x) * \mathbb{1}_{A}(x)}{\mathbb{P}(x\in A)}dx $\newline
+$\int_{A\cap B}f dx=\int f*\mathbb{1}_{A\cap B}(x)dx=\int f(x)\mathbb{1}_{A}(x)*\mathbb{1}_{B}(x)=\int_{B} f(x)*\mathbb{1}_{A}(x)dx$\newline
+
+\chapter{Curs 13}
+\section{Independeța v.a}
+
+$\mathbb{P}(x\in A, Y\in B)=\mathbb{P}{(x\in A)} * \mathbb{P}(y\in B), \forall A,B \subseteq \mathbb{R}$\newline
+$A=(-\infty,x]$\newline
+$B=(-\infty,y]$\newline
+ $\mathbb{P}(X\le x, Y\le y)=\mathbb{P}(X\le x)* \mathbb{P}(Y\le y) \forall x,y $\newline
+ $\int_{-\infty}^{x}\int_{-\infty}^{y} f_(x,y)(u,v)dvdu = \int_{\infty}^{x}f_{x}(u)du\int_{-\infty}^{y}f_{x}(v)dv$\newline
+ 
+ Derivăm după y si x:\newline
+ $\frac{\partial^2}{\partial x \partial y} \int_{-\infty}^{x}\int_{-\infty}^{y}f_(x,y)(u,v)dvdu=f_{(x,y)}(x,y)=f_{x}(x)f_{y}(y)$\newline 
+ 
+ Propoziție:\newline
+ Fie X și Y v.a cu densitate fx și repartiția fy:\newline
+ Atunci:\newline
+ $x \perp \let\gets\Leftrightarrow  f_{(x,y)}(x,y)=f_{x}(x)f_{y}(y)$
+ 
+ Propoziție:\newline
+ Fie X si Y două v.a. și g și h 2 fete.\newline
+ Dacă $f_{(x|y)}(x|y)=g(x)* h(y) \forall x,y$ atunci $ x \perp y $\newline
+ 
+Propoziție:\newline
+Dacă X si Y sunt 2 v.a independente\newline
+$\mathbb{E}[g(x)* h(y)] =\mathbb{E}[g(x)] * \mathbb{E}[h(y)]$ \newline
+
+ Formula lui Bayes\newline
+ X,Y v.a continuă \newline
+ $f_{x|y}(x,y)=f_{x|y}(x|y)f_{y}y=f_{y|x}(y|x)f_{x}x$ \newline
+ $f_{x|y}(x|y)=\frac{f_{x,y}(x,y)}{f_{y}(y)}=\frac{f_{y|x}(y|x)*f_{x}(x)}{f_{y}(y)}=\frac{f_{y|x}(y|x)* f_{x}(x)}{\int f_{y|x}(y|x')* f_{x}(x')dx'}$\newline
+ 
+ \subsection{Experiment} 
+ A și B durată de viață pentru telefonul din firmă\newline
+ A este Exp($\alpha_0$)\newline
+ B Exp($\alpha_1$)\newline
+ Presupunem că primim un telefon de la A cu prob $p_{0}$ și de la B cu $p_{1} = 1- p_{0}$ \newline
+ Fie T durata de viață a telefonului primit\newline
+ 
+ Se cer: \newline
+ a) funcția de repartiție și densitatea lui T\newline
+ b) Probabilitatea ca telefonul sa fi provenit de la B știind că T=t\newline
+ 
+ T v.a. continuă \newline
+ Fie I v.a = \newline
+ 0,  telefon produs de A;\newline
+ 1, telefon produs de B \newline
+ $\mathbb{P}(I=0)=p_{0}$\newline
+ $\mathbb{P}(I=1)=p-{1} = 1 - p_{0}$\newline
+ $T|I = 0 \sim Exp{(\alpha_0)}$\newline
+ $T|I = 1 \sim Exp{(\alpha_1)}$\newline
+ $\mathbb{P}(T\le t)=\mathbb{P}(T \le t | I=0) * \mathbb{P}(I=0)+\mathbb{P}(T\leq t | I=1) * \mathbb{P}(I=1)$\newline
+ 
+ \section{Media unei funcții de v.a.}
+ X și Y două v.a. \newline
+ $f_{x,y}(x,y) și g:\mathbb{R}^2 \to \mathbb{R}$\newline
+ $\mathbb{E}[g(x,y)]=\int\int g(x,y)* f_{x,y}(x,y) dxdy$\newline
+ In particular,\newline
+$\mathbb{E}[xy]=\int\int xy f_{x,y}(x,y)dxdy$\newline
+
+\section{Media condiționată}
+X v.a. continuă și A un eveniment $\mathbb{P}(A) > 0$\newline
+$\mathbb{E}[X|A]=\int x f_{x|A}(x)dx$\newline
+Dacă $A=\{Y=y\}$\newline
+$\mathbb{E}[X|Y=y]=\int x f_{x|y}(x,y)$dx\newline
+
+\section{Formula probabilității totale}
+$f_{x}(x) = \sum_{i=1}^{n} f_{x|A_{i}}(x) * \mathbb{P}(A_{i})  | *$ x apoi integăm \newline
+$\Rightarrow \mathbb{E}[X] = \sum_{i=1}^{n} \mathbb{E}[X|A]* \mathbb{P}(A_{i})$ \newline
+$\mathbb{E}[X] = \int \mathbb{E}[X|Y=y]f_{y}(y) dy$\newline
+
+Definiție:\newline
+Fie $g(y) =\mathbb{E}[X|Y=y]$\newline
+Atunci v.a. $\mathbb{E}[X|Y]=g(y)$\newline
+
+Proprietate:\newline
+$\mathbb{E}[\mathbb{E}[X|Y]] = \mathbb{E}[x]$\newline
+$Var(X)= Var(\mathbb{E}[X|Y]+\mathbb{E}[Var(x|y)])$ \newline
+
+Exercițiu: \newline
+N clienți\newline
+$X_{1},X_{2} ... $ sumele pe care le-au achitat\newline
+$T=X_{1}+X_{2}+...X_{\lambda}$\newline
+$N(\omega_1)=10$\newline
+$T(\omega_1) = X_{1}(\omega_1)+...X_{10}(\omega_1)$\newline
+
+\section{Covarianța și corelație}
+Definiție:\newline
+Fie X și Y două v.a. se numesc covarianțe dintre X si Y\newline
+$Cov(X,Y) =\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]$\newline
+
+Convarianța este:\newline 
+$\mathbb{E}[XY]-\mathbb{E}[X]*\mathbb{E}[Y]$\newline
+
+Definiție:\newline
+Spunem că X și Y sunt necorelate dacă convarianța lor este 0.\newline
+Dacă $X\perp Y \Rightarrow $ X si Y sunt necorelate.\newline
+
+Proprietăți:\newline
+a) Cov(X,X) = Var(X)\newline
+b) Cov(X,a) =0 , a const\newline
+c) Cov(a+bx, y)=b Cov(X,Y) \newline
+d) Cov(X,Y) = Cov(Y,X) \newline
+e) Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)\newline
+$Var(x_{1}...x_{n})=\sum_{i=1} Var(x_{i})+2\sum_{i<j}Cov(x_{i}, x_{j}) $\newline
+f) Cov(x+y,z)=Cov(x,z)+Cov(y,z) \newline
+
+\section{Inegalități și termeni limită}
+
+Inegalitatea Cauchy Schwartz:\newline
+Fie X și Y v.a. cu $Var(x)<\infty$ \newline
+Atunci: \newline
+$|\mathbb{E}[XY]\le \sqrt{\mathbb{E}[x^2]\mathbb{E}[y^2]}$\newline
+
+Funcția convexă:\newline
+Inegalitatea lui Jensen:\newline
+Fie X v.a. pozitivă.\newline
+Atunci: \newline
+$\mathbb{P}(X\ge a )\le \frac{\mathbb{E}[X]}{a} $ 
+
+
+\end{document}

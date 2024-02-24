@@ -1,0 +1,407 @@
+prob obligatorii
+1 ford fulkerson
+2 flux maxim - cuplaj maxim in grafuri bipartite
+3
+4 alg lui hierholzer 
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <queue>
+#include <limits>
+
+using namespace std;
+ifstream fin("fmcm.in");
+ofstream fout("fmcm.out");
+
+#define inf INT_MAX
+#define dim 400
+
+int n,m,s,d;
+vector<vector<int>> adj_list;
+int capacity[dim][dim];
+int cost[dim][dim];
+int distanta[dim];
+int new_dist[dim];
+bool in_coada[dim];
+vector<int>parent;
+vector <int> costBellman(351), costDijkstra(351), costuri(351);
+int flux, rasp_cost, rasp_flux;
+
+void bellmanFord()
+{
+    queue<int>coada;
+    vector<bool>viz(dim,0);
+    costBellman.assign(351, inf);
+    coada.push(s);
+    viz[s]=1;
+    costBellman[s]=0;
+    while (!coada.empty())
+    {
+        auto nod_extras = coada.front();
+        coada.pop();
+        viz[nod_extras] = 0;
+
+        for (long unsigned int i=0; i<adj_list[nod_extras].size(); i++)
+        {
+            auto nod_vecin = adj_list[nod_extras][i];
+            auto cost_vecin = cost[nod_extras][nod_vecin];
+            auto flux_vecin = capacity[nod_extras][nod_vecin];
+            if (flux_vecin != 0)
+            {
+                if (costBellman[nod_vecin] > costBellman[nod_extras] + cost_vecin)
+                {
+                    costBellman[nod_vecin] = costBellman[nod_extras] + cost_vecin;
+                    if (viz[nod_vecin] == 0)
+                    {
+                        coada.push(nod_vecin);
+                        viz[nod_vecin] = 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void dijkstra ()
+{
+    priority_queue <pair <int, int>, vector <pair <int, int>>, greater <pair <int, int>>> coada;
+    costDijkstra.assign(351, inf);
+    costDijkstra[s]=0;
+    costuri[s]=0;
+    coada.push({0, s});
+    while(coada.empty() == false)
+    {
+        auto pereche_extrasa = coada.top();
+        coada.pop();
+
+        auto costuri_extras = pereche_extrasa.first;
+        auto nod_extras = pereche_extrasa.second;
+
+        if (costDijkstra[nod_extras] == costuri_extras)
+            for (unsigned long int j=0; j<adj_list[nod_extras].size(); j++)
+            {
+                auto vecin = adj_list[nod_extras][j];
+                auto costuri_vecin = cost[nod_extras][vecin];
+                auto flux_vecin = capacity[nod_extras][vecin];
+                if (flux_vecin > 0)
+                    if (costDijkstra[vecin] > costDijkstra[nod_extras] + costuri_vecin + costBellman[nod_extras] - costBellman[vecin])
+                    {
+                        costDijkstra[vecin] = costDijkstra[nod_extras] + costuri_vecin + costBellman[nod_extras] - costBellman[vecin];
+                        coada.push({costDijkstra[vecin], vecin});
+
+                        costuri[vecin] = costuri[nod_extras] + costuri_vecin;
+                        parent[vecin] = nod_extras;
+                    }
+            }
+    }
+}
+
+bool alg_flux()
+{
+    dijkstra();
+    for (int i=1; i<=n; i++)
+        costBellman[i] = costuri[i];
+
+    if (costDijkstra[d] == inf)
+        return false;
+
+    int flux_curent = inf;
+    int cost_curent = 0;
+
+    int nod = d;
+    while (nod != s)
+    {
+        flux_curent = min(flux_curent, capacity[parent[nod]][nod]);
+        cost_curent += cost[parent[nod]][nod];
+        nod = parent[nod];
+    }
+    nod = d;
+
+    while (nod != s)
+    {
+        capacity[parent[nod]][nod] -= flux_curent;
+        capacity[nod][parent[nod]] += flux_curent;
+        nod = parent[nod];
+    }
+    rasp_cost += flux_curent * costuri[d];
+    rasp_flux += flux_curent;
+
+    return true;
+}
+
+void citire()
+{
+    fin>>n>>m>>s>>d;
+    adj_list.resize(n+1);
+    parent.resize(n+1);
+    for(int i=1;i<=m;i++)
+    {
+        int x,y,c,z;
+        cin>>x>>y>>c>>z;
+        adj_list[x].push_back(y);
+        adj_list[y].push_back(x);
+        capacity[x][y]=c;
+        cost[x][y]=z;
+        cost[y][x]=-z;
+    }
+    bellmanFord();
+}
+int main()
+{
+    citire();
+    while (alg_flux());
+        fout << rasp_cost;
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <fstream>
+#include <queue>
+#include <vector>
+#include <climits>
+#include <limits>
+
+#define inf INT_MAX
+
+using namespace std;
+
+ifstream fin("fmcm.in");
+ofstream fout("fmcm.out");
+
+int n, m, s, d, x, y, flux, costt, capacity[351][351], cost[351][351], tata[351], rasp_cost, rasp_flux;
+vector <vector <int>> adj_list(351);
+vector <int> costBellman(351), costDijkstra(351), costuri(351);
+
+void bellmanFord ()
+{
+    queue <int> coada;
+    vector <bool> viz(351, false);
+    costBellman.assign(351, inf);
+
+    coada.push(s);
+    viz[s] = true;
+    costBellman[s] = 0;
+
+    while (coada.empty() == false)
+    {
+        auto nod_extras = coada.front();
+        coada.pop();
+        viz[nod_extras] = false;
+
+        for (long unsigned int i=0; i<adj_list[nod_extras].size(); i++)
+        {
+            auto nod_vecin = adj_list[nod_extras][i];
+            auto cost_vecin = cost[nod_extras][nod_vecin];
+            auto flux_vecin = capacity[nod_extras][nod_vecin];
+            if (flux_vecin != 0)
+            {
+                if (costBellman[nod_vecin] > costBellman[nod_extras] + cost_vecin)
+                {
+                    costBellman[nod_vecin] = costBellman[nod_extras] + cost_vecin;
+                    if (viz[nod_vecin] == false)
+                    {
+                        coada.push(nod_vecin);
+                        viz[nod_vecin] = true;
+                    }
+                }
+            }
+        }
+    }
+}
+void dijkstra ()
+{
+    priority_queue <pair <int, int>, vector <pair <int, int>>, greater <pair <int, int>>> coada;
+    costDijkstra.assign(351, inf);
+
+    costDijkstra[s] = 0;
+    costuri[s] = 0;
+    coada.push({0, s});
+
+    while(coada.empty() == false)
+    {
+        auto pereche_extrasa = coada.top();
+        coada.pop();
+
+        auto cost_extras = pereche_extrasa.first;
+        auto nod_extras = pereche_extrasa.second;
+
+        if (costDijkstra[nod_extras] == cost_extras)
+            for (unsigned long int j=0; j<adj_list[nod_extras].size(); j++)
+            {
+                auto vecin = adj_list[nod_extras][j];
+                auto cost_vecin = cost[nod_extras][vecin];
+                auto flux_vecin = capacity[nod_extras][vecin];
+                if (flux_vecin > 0)
+                    if (costDijkstra[vecin] > costDijkstra[nod_extras] + cost_vecin + costBellman[nod_extras] - costBellman[vecin])
+                    {
+                        costDijkstra[vecin] = costDijkstra[nod_extras] + cost_vecin + costBellman[nod_extras] - costBellman[vecin];
+                        coada.push({costDijkstra[vecin], vecin});
+
+                        costuri[vecin] = costuri[nod_extras] + cost_vecin;
+                        tata[vecin] = nod_extras;
+                    }
+            }
+    }
+}
+
+bool alg_flux()
+{
+    dijkstra();
+    for (int i=1; i<=n; i++)
+        costBellman[i] = costuri[i];
+    if (costDijkstra[d] == inf) return false;
+    int flux_curent = inf;
+    int cost_curent = 0;
+    int nod = d;
+    while (nod != s)
+    {
+        flux_curent = min(flux_curent, capacity[tata[nod]][nod]);
+        cost_curent += cost[tata[nod]][nod];
+        nod = tata[nod];
+    }
+    nod = d;
+    while (nod != s)
+    {
+        capacity[tata[nod]][nod] -= flux_curent;
+        capacity[nod][tata[nod]] += flux_curent;
+        nod = tata[nod];
+    }
+    rasp_cost += flux_curent * costuri[d];
+    rasp_flux += flux_curent;
+    return true;
+}
+void citire()
+{
+    fin >> n >> m >> s >> d;
+    for(int i=1;i<=m;i++)
+    {
+        int x,y,c,z;
+        fin>>x>>y>>c>>z;
+        adj_list[x].push_back(y);
+        adj_list[y].push_back(x);
+        capacity[x][y]=c;
+        cost[x][y]=z;
+        cost[y][x]=-z;
+    }
+    bellmanFord();
+}
+int main()
+{
+    citire();
+    while (alg_flux());
+    fout << rasp_cost;
+    return 0;
+}
+
+
+
+
+
+-------------------------3 optionala
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits>
+#include <cmath>
+using namespace std;
+int n, source, destination, max_flow;
+vector<int>parent, visited, a, solution;
+vector<vector<int>>adjacency_list(2002);
+int capacity[2002][2002];
+queue<int>q;
+
+int bfs(){
+    visited.assign(n+2, 0);
+    parent.assign(n+2, 0);
+    while(!q.empty()){
+        q.pop();
+    }
+    q.push(source);
+    visited[source]=1;
+    parent[source]=0;
+    while(!q.empty()){
+        int node=q.front();
+        q.pop();
+        if(node == destination)
+            return 1;
+        for(auto neighbour:adjacency_list[node]){
+            if(visited[neighbour]==0 && capacity[node][neighbour]>0) {
+                q.push(neighbour);
+                parent[neighbour]=node;
+                visited[neighbour]=1;
+            }
+        }
+    }
+    return visited[destination];
+}
+
+int prime(int x){
+    if(x <= 1)
+        return false;
+    for(int i=2; i<=sqrt(x); i++){
+        if(x % i == 0)
+            return false;
+    }
+    return true;
+}
+
+int main() {
+    cin>>n;
+    adjacency_list.resize(n + 2);
+    a.resize(n + 2);
+    source = 0, destination = n + 1;
+    for(int i=1; i<=n; i++){
+        cin>>a[i];
+        if(a[i] % 2 == 0){ // daca e par ii pun indicele in partea stanga
+            capacity[source][i] = 1;
+            adjacency_list[source].push_back(i);
+            adjacency_list[i].push_back(source);
+        }
+        else{ // daca e impar il pun in partea dreapta
+            capacity[i][destination] = 1;
+            adjacency_list[i].push_back(destination);
+            adjacency_list[destination].push_back(i);
+        }
+    }
+    for(int i=1; i<n; i++){
+        for(int j=i+1; j<=n; j++){
+            if(prime(a[i] + a[j])){
+                adjacency_list[i].push_back(j);
+                adjacency_list[j].push_back(i);
+                if(a[i] % 2 == 0)
+                    capacity[i][j] = 1;
+                else
+                    capacity[j][i] = 1;
+            }
+        }
+    }
+    while(bfs()){
+        for(int i=1; i<=n; i++){
+            if(visited[i] && capacity[i][destination] > 0){
+                parent[destination] = i;
+                int flow = INT_MAX;
+                for(int node = destination; node != source; node = parent[node]) {
+                    flow = min(flow, capacity[parent[node]][node]);
+                }
+                if(flow == 0) continue;
+                for(int node = destination; node != source; node = parent[node]) {
+                    capacity[parent[node]][node] -= flow;
+                    capacity[node][parent[node]] += flow;
+                }
+                max_flow += flow;
+            }
+        }
+    }
+    for(int i=1; i<=n; i++){
+        if(!visited[i] && a[i] % 2 == 0 || visited[i] && a[i] % 2 == 1)
+            solution.push_back(a[i]);
+    }
+    cout<<solution.size()<<'\n';
+    for(auto i: solution){
+        cout<<i<<" ";
+    }
+    return 0;
+}
